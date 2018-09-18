@@ -4,7 +4,8 @@ Games Development 2018 Class Project
 
 Hello
 
-Hello Rob Mesed this up now locally
+
+Hello Rob Mesed this on personal GitHub
 
 
 Based on the Game Worms 3D 
