@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Projectiles Scenes/Projectile Test.unity
+- path: Assets/WormMovementScenes/Worm Movement Test.unity
   isLoaded: 1
   isActive: 1
