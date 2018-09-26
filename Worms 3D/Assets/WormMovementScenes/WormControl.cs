@@ -185,7 +185,7 @@ public class WormControl : MonoBehaviour {
 
     private void rotateLeft()
     {
-        transform.Rotate(transform.up, turningSpeed * Time.deltaTime);
+        transform.Rotate(transform.up, -turningSpeed * Time.deltaTime);
     }
 
     private bool shouldRotateRight()
@@ -194,7 +194,7 @@ public class WormControl : MonoBehaviour {
     }
     private void rotateRight()
     {
-        transform.Rotate(transform.up, -turningSpeed * Time.deltaTime);
+        transform.Rotate(transform.up, +turningSpeed * Time.deltaTime);
     }
 
     private void goBackwards()
