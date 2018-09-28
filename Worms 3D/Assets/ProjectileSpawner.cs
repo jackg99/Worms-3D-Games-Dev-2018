@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*How to use this script:
+ Setting up a projectile prefab object and 
+ instantiating the prefabs as game objects. 
+ It acesses the projectile control script and the youAreA().
+ It passes in the arguments for the projectile type, position, direction, speed for the game object*/
+
 public class ProjectileSpawner : MonoBehaviour {
 
     public Object grenadePrefab;
