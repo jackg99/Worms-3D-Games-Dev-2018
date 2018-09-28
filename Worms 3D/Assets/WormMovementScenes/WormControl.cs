@@ -14,6 +14,10 @@ public class WormControl : MonoBehaviour {
 
     enum Movement  {slither, jump, fall};
 
+    FloatingDisplay ourHealth;
+
+    int health = 5;
+
 
     // Use this for initialization
     void Start () {
@@ -23,8 +27,8 @@ public class WormControl : MonoBehaviour {
         Movement movementMode;
 
         movementMode = Movement.slither;
-        
 
+        ourHealth = gameObject.AddComponent<FloatingDisplay>();
 
     }
 	
@@ -32,7 +36,8 @@ public class WormControl : MonoBehaviour {
 	void Update ()
     {
         //Insert Switch Case for deciding movement mode of the Controlled Worm
-
+        ourHealth.setDisplay(health.ToString());
+        health++;
 
         /*
         switch(somethingCool)
