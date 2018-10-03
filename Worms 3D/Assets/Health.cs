@@ -8,6 +8,16 @@ using UnityEngine;
  * Evan Barry 
  * Jack Gammon */
 
+    /*How to use this script:    
+     Every object that has health has to:
+     have a tag explaining what the game object is so it can
+     be assigned an appropiate health value. 
+     In addition it will also need the healthDriverTest script.
+     This script will also destroy game objects once the health has hit 0.
+     This script will assign a max health to certain game objects preventing some
+     from going above a certain value.
+     */
+
 public class Health : MonoBehaviour {
 
     public int health;

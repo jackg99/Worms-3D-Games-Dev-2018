@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*How to use this script:
+ This script is assigning values to game objects that are passed
+ in the youAreA() based on it's projectile type.
+ It transforms the object based on these values.*/
+
 public class ProjectileControl : MonoBehaviour {
     Vector3 velocity, acceleration;
     Quaternion grenaderotation;

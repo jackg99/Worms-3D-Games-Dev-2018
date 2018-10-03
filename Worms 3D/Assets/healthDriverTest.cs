@@ -8,12 +8,15 @@ using UnityEngine;
  * Evan Barry
  * Jack Gammon*/
 
+    /*How to use this script:
+     This script will increment and decrement health on button presses
+     It will also access the health script component and access it's adjustHealth(). */
+
 public class healthDriverTest : MonoBehaviour {
     Health myHealth;
 	// Use this for initialization
 	void Start () {
         myHealth = GetComponent<Health>();
-
 
 	}
 	
