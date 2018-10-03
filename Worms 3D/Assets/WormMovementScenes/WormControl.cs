@@ -28,7 +28,7 @@ public class WormControl : MonoBehaviour {
 
         movementMode = Movement.slither;
 
-        ourHealth = gameObject.AddComponent<FloatingDisplay>();
+       // ourHealth = gameObject.AddComponent<FloatingDisplay>();
 
     }
 	
@@ -36,8 +36,8 @@ public class WormControl : MonoBehaviour {
 	void Update ()
     {
         //Insert Switch Case for deciding movement mode of the Controlled Worm
-        ourHealth.setDisplay(health.ToString());
-        health++;
+       // ourHealth.setDisplay(health.ToString());
+       // health++;
 
         /*
         switch(somethingCool)

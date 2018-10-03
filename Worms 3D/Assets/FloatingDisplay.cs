@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,5 +47,10 @@ public class FloatingDisplay : MonoBehaviour {
     {
         floatingDisplay.transform.rotation = Quaternion.LookRotation((-Camera.main.transform.position+floatingDisplay.transform.position).normalized);//Camera.main.transform.rotation;
 	}
-    
+
+    internal void manuallyDestroy()
+    {
+        Destroy(floatingDisplay);
+        Destroy(this);
+    }
 }
