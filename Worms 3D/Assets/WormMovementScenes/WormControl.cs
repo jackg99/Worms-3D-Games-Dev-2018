@@ -8,9 +8,20 @@ public class WormControl : MonoBehaviour {
     Vector3 direction, velocity, acceleration;
     float AmplitudeForWormSlither = 0.1f;
     float PeriodOfSlither = 1;
+
+
+
     //Define walking speed variable and turning speed variable
     float walkingSpeed = 2,turningSpeed = 45, jumpForce = 7;
     private float timeForSlither;
+
+    internal void setActive(bool v)
+    {
+        isActive = v;
+    }
+
+    bool isActive = false;
+
 
     enum Movement  {slither, jump, fall};
 
@@ -31,7 +42,7 @@ public class WormControl : MonoBehaviour {
         movementMode = Movement.slither;
 
 
-        ourHealth = gameObject.AddComponent<Health>();
+  
 
 
     }
@@ -54,55 +65,59 @@ public class WormControl : MonoBehaviour {
         }
         */
         //shouldGoForward() method defines the key press (w)
-        if (shouldGoForward())
+        if (isActive)
         {
-            //Applies actual movement equation forward
-            goForward();
-            wormWalk();
-        }
+            
+            if (shouldGoForward())
+            {
+                //Applies actual movement equation forward
+                goForward();
+                wormWalk();
+            }
 
-        //shouldGoBack() method defines the key press (s)
-        if (shouldGoBackwards())
-        {
-            //Applies actual movement equation backward
-            goBackwards();
-        }
+            //shouldGoBack() method defines the key press (s)
+            if (shouldGoBackwards())
+            {
+                //Applies actual movement equation backward
+                goBackwards();
+            }
 
-        //shouldRotateLeft() method defines the key press (a)
-        if (shouldRotateLeft())
-        {
-            //Applies actual movement equation left
-            rotateLeft();
-        }
+            //shouldRotateLeft() method defines the key press (a)
+            if (shouldRotateLeft())
+            {
+                //Applies actual movement equation left
+                rotateLeft();
+            }
 
-        //shouldRotateRight() method defines the key press (d)
-        if (shouldRotateRight())
-        {
-            //Applies actual movement equation right
-            rotateRight();
-        }
+            //shouldRotateRight() method defines the key press (d)
+            if (shouldRotateRight())
+            {
+                //Applies actual movement equation right
+                rotateRight();
+            }
 
-        //shouldStrafeLeft() method defines the key press (q)
-        if(shouldStrafeLeft())
-        {
-            strafeLeft();
-        }
-        //shouldStrafeRight() method defines the key press (e)
-        if (shouldStrafeRight())
-        {
-            strafeRight();
-        }
-        if (shouldJump())
-        {
-            jump();
-        }
+            //shouldStrafeLeft() method defines the key press (q)
+            if (shouldStrafeLeft())
+            {
+                strafeLeft();
+            }
+            //shouldStrafeRight() method defines the key press (e)
+            if (shouldStrafeRight())
+            {
+                strafeRight();
+            }
+            if (shouldJump())
+            {
+                jump();
+            }
 
 
-        //The movement equation, updates position of the worm on key press
-        transform.position += walkingSpeed* direction /*+ acceleration */* Time.deltaTime;
+            //The movement equation, updates position of the worm on key press
+            transform.position += walkingSpeed * direction /*+ acceleration */* Time.deltaTime;
 
-        //This allows the worm to stop when the key is released
-        direction = Vector3.zero;
+            //This allows the worm to stop when the key is released
+            direction = Vector3.zero;
+        }
     }
 
     private bool shouldStrafeRight()

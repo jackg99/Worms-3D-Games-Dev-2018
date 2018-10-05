@@ -26,7 +26,7 @@ public class FloatingDisplay : MonoBehaviour {
 
         floatingDisplay = new GameObject("Floating Display");
         floatingDisplay.transform.parent = transform;
-        floatingDisplay.transform.localPosition += 1.65f * Vector3.up;
+        floatingDisplay.transform.localPosition = 1.65f * Vector3.up;
 
 
         ourText = floatingDisplay.AddComponent<TextMesh>();
