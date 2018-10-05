@@ -30,7 +30,9 @@ public class WormControl : MonoBehaviour {
 
         movementMode = Movement.slither;
 
+
         ourHealth = gameObject.AddComponent<Health>();
+
 
     }
 	
