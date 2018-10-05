@@ -47,5 +47,10 @@ public class TimeAndDisplayCountup : MonoBehaviour {
     {
         return gameTimer / TargetTime;
     }
+
+    internal bool isOver()
+    {
+        return gameTimer > TargetTime;
+    }
 }
    

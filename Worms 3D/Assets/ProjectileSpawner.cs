@@ -15,11 +15,17 @@ public class ProjectileSpawner : MonoBehaviour {
     FloatingDisplay strengthMeterDisplay;
     TimeAndDisplayCountup strengthMeter;
     private float MaxGrenadeSpeed = 40;
+    Health ourHealth;
+
+    
     
 
     // Use this for initialization
     void Start () {
-		
+
+		ourHealth = this.gameObject.AddComponent<Health>();
+       
+        
 	}
 
     // Update is called once per frame
@@ -78,6 +84,12 @@ public class ProjectileSpawner : MonoBehaviour {
 
             strengthMeterDisplay.manuallyDestroy();
         }
-    }
+
     
+
+
 }
+
+
+    
+
