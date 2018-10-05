@@ -11,11 +11,18 @@ public class FloatingDisplay : MonoBehaviour {
     // Use this for initialization
     GameObject floatingDisplay;
     TextMesh ourText;
-    string display = "101";
-    
-	void Start () {
+
+     Health  myHealth;
 
 
+    // int display = System.Convert.ToInt32(myHealth.health);
+    // string displayString = display.ToString();
+    string displayString;
+    private bool needToUpdateDisplay;
+
+    void Start () {
+
+ 
 
         floatingDisplay = new GameObject("Floating Display");
         floatingDisplay.transform.parent = transform;
@@ -23,7 +30,7 @@ public class FloatingDisplay : MonoBehaviour {
 
 
         ourText = floatingDisplay.AddComponent<TextMesh>();
-        ourText.text = display;
+        ourText.text = displayString;             //displayString;
         ourText.anchor = TextAnchor.MiddleCenter;
         ourText.alignment = TextAlignment.Center;
         Font font = Resources.Load<Font>("Pixel Font - Tripfive/Fonts/Tripfive-EX");
@@ -35,16 +42,28 @@ public class FloatingDisplay : MonoBehaviour {
 
         
     }
-	
+
 
     public void setDisplay(string newText)
     {
-        ourText.text = newText;
+        if (ourText)
+        {   ourText.text = newText;
+            needToUpdateDisplay = false;
+            }
+        else
+        {
+            needToUpdateDisplay = true;
+            displayString = newText;
+        }
 
     }
 	// Update is called once per frame
 	void Update ()
     {
+        if (needToUpdateDisplay)
+       
+            setDisplay(displayString);
+
         floatingDisplay.transform.rotation = Quaternion.LookRotation((-Camera.main.transform.position+floatingDisplay.transform.position).normalized);//Camera.main.transform.rotation;
 	}
 
@@ -53,4 +72,5 @@ public class FloatingDisplay : MonoBehaviour {
         Destroy(floatingDisplay);
         Destroy(this);
     }
+
 }
