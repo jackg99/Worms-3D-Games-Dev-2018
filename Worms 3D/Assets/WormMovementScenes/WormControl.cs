@@ -26,6 +26,7 @@ public class WormControl : MonoBehaviour {
     enum Movement  {slither, jump, fall};
 
     Health ourHealth;
+    ProjectileControl projectile;
 
     int health = 5;
 
@@ -42,7 +43,6 @@ public class WormControl : MonoBehaviour {
         movementMode = Movement.slither;
 
 
-  
 
 
     }
@@ -241,4 +241,15 @@ public class WormControl : MonoBehaviour {
     {
         return Input.GetKey("w");
     }
+
+    //private void OnCollisionEnter(Collision col)
+    //{
+    //    if (col.gameObject.CompareTag("Player"))
+    //    {
+    //        if (thisProjectile == ProjectileType.Grenade)
+    //        {
+    //            ourHealth.adjustHealth(-30);
+    //        }
+    //    }
+    //}
 }
