@@ -26,6 +26,7 @@ public class WormControl : MonoBehaviour {
     enum Movement  {slither, jump, fall};
 
     Health ourHealth;
+    FloatingDisplay ourDisplay;
     ProjectileControl projectile;
 
     int health = 5;
@@ -37,18 +38,21 @@ public class WormControl : MonoBehaviour {
         ourHealth.Iam(this);
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
+        ourDisplay = gameObject.GetComponent<FloatingDisplay>();
 
         Movement movementMode;
 
         movementMode = Movement.slither;
 
 
-
+        /* relocated from health script
+         FloatingDisplay ourHealthDisplay;
+         */
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         //Insert Switch Case for deciding movement mode of the Controlled Worm
 
@@ -67,6 +71,8 @@ public class WormControl : MonoBehaviour {
         //shouldGoForward() method defines the key press (w)
         if (isActive)
         {
+
+            ourDisplay.setColour(1);
             
             if (shouldGoForward())
             {
@@ -117,6 +123,10 @@ public class WormControl : MonoBehaviour {
 
             //This allows the worm to stop when the key is released
             direction = Vector3.zero;
+        }//End isActive
+        else
+        {
+            ourDisplay.setColour(0);
         }
     }
 

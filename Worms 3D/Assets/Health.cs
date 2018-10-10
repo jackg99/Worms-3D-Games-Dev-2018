@@ -32,7 +32,12 @@ public class Health : MonoBehaviour {
         ourHealthDisplay.setDisplay(health.ToString());
     }
 
-    FloatingDisplay ourHealthDisplay;
+    FloatingDisplay ourHealthDisplay;               //this is what we want to do
+    /*
+     * relocate the code above to worm control script
+     * 
+     * FloatingDisplay ourHealthDisplay = gameObject.GetComponent<FloatingDisplay>();       <-- not sure if correct
+     */
 
 
 
