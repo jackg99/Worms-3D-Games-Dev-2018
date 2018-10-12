@@ -15,7 +15,9 @@ public class ProjectileSpawner : MonoBehaviour {
     FloatingDisplay strengthMeterDisplay;
     TimeAndDisplayCountup strengthMeter;
     private float MaxGrenadeSpeed = 40;
-    Health ourHealth;
+
+
+    WormControl ourOwner;
 
     
     
@@ -23,8 +25,9 @@ public class ProjectileSpawner : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-		ourHealth = this.gameObject.AddComponent<Health>();
-       
+	
+        ourOwner = gameObject.GetComponent<WormControl>();
+        ourOwner.setActive(true);
         
 	}
 
@@ -67,7 +70,7 @@ public class ProjectileSpawner : MonoBehaviour {
                 GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
                 ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
-                newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f);
+                newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f, ourOwner);
             }
 
         }
@@ -77,8 +80,8 @@ public class ProjectileSpawner : MonoBehaviour {
             GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
             ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
-            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, transform.position, (transform.forward + Vector3.up).normalized,
-            MaxGrenadeSpeed * strengthMeter.relative());
+            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, transform.position  /*5*transform.forward+ 5*transform.up */, (transform.forward + Vector3.up).normalized,
+            MaxGrenadeSpeed * strengthMeter.relative(),ourOwner);
 
             Destroy(strengthMeter);
 

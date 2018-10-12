@@ -54,6 +54,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4790190308155404}
   - component: {fileID: 114371848564305906}
+  - component: {fileID: 135831214461163576}
+  - component: {fileID: 54565839180143298}
   m_Layer: 0
   m_Name: FruitGrenadePrefab
   m_TagString: Untagged
@@ -431,6 +433,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581006331007688}
   m_Mesh: {fileID: 4300008, guid: a7464d8acaed5194f840998817ba197c, type: 3}
+--- !u!54 &54565839180143298
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1379774948088548}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95084689397223850
 Animator:
   serializedVersion: 3
@@ -460,3 +477,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turningSpeed: 45
+--- !u!135 &135831214461163576
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1379774948088548}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

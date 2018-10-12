@@ -196,7 +196,7 @@ public class WormControl : MonoBehaviour {
     private void wormWalk()
     {
         timeForSlither += Time.deltaTime;
-        print(( timeForSlither) * (2 * Mathf.PI) / PeriodOfSlither);
+// print(( timeForSlither) * (2 * Mathf.PI) / PeriodOfSlither);
         foreach (Transform child in transform)
             child.localScale = new Vector3(  1 + AmplitudeForWormSlither * Mathf.Sin(((2 * Mathf.PI) * timeForSlither) / PeriodOfSlither)  , 1, 1);
 ;    }
