@@ -22,6 +22,7 @@ public class ProjectileControl : MonoBehaviour {
     WormControl ourOwner;
     TimeAndDisplayCountup grendeTimer;
     private float MaxDamage;
+    private readonly float max_damage_dist_ratio = 0.1f;
 
 
 
@@ -52,8 +53,8 @@ public class ProjectileControl : MonoBehaviour {
                 grendeTimer = gameObject.AddComponent<TimeAndDisplayCountup>();
                 grendeTimer.setDuration(grenadeTimeToExplode);
                 grendeTimer.startTimer();
-                MaxDamage = 100;
-                AOE_radius = 100;
+                MaxDamage = 50;
+                AOE_radius = 3;
 
 
                 
@@ -118,7 +119,7 @@ public class ProjectileControl : MonoBehaviour {
             if (victim)
             {
                 victim.printHello();
-                victim.adjustHealth(-5);
+                victim.adjustHealth(calculateDamage(victim.transform.position));
             }
 
         }
@@ -130,13 +131,17 @@ public class ProjectileControl : MonoBehaviour {
     private int calculateDamage(Vector3 position)
     {
         float distance = Vector3.Distance(position, transform.position);
+        if (distance < max_damage_dist_ratio * AOE_radius)
+            return (int) MaxDamage;
 
-        return   (int) Mathf.Max(MaxDamage * (1.0f / (distance + 0.1f)), 50);
+        return   20;
     }
 
     private void OnCollisionEnter(Collision col)
     {
+       // print("Ouch");
       transform.position -= velocity * Time.deltaTime;
+
       velocity = new Vector3(velocity.x, -0.5f * velocity.y, velocity.z);
     
 

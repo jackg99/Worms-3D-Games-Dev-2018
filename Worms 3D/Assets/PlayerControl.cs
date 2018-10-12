@@ -14,12 +14,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
-    int current_Worm_Index = 0;
+    int current_Worm_Index = -1;
     List<WormControl> allWorms;
     //Testcode -- Remove if everything goes wrong
     List<WormControl> team1;
     //End testcode
     public Object WormPrefab;
+    bool someWormActive = false;
 
 
     // Use this for initialization
@@ -29,15 +30,21 @@ public class PlayerControl : MonoBehaviour {
         team1 = new List<WormControl>();
         //end testcode
         spawnWorms();
-        allWorms[current_Worm_Index].setActive(true);
+  
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            allWorms[current_Worm_Index].setActive(false);
-            current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
+            if (someWormActive)
+            {
+                allWorms[current_Worm_Index].setActive(false);
+            }
+            
+            someWormActive = true;
+
+                current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
             allWorms[current_Worm_Index].setActive(true); 
 
 
@@ -50,7 +57,7 @@ public class PlayerControl : MonoBehaviour {
             for(int j = 0; j < 4; j++)
             {
             
-                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(2*i,0,2*j), Quaternion.identity);
+                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(4*i,0.2f,4*j), Quaternion.identity);
                 allWorms.Add(temp.GetComponent<WormControl>());
 
                 //Testcode -- Remove if everything goes wrong

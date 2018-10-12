@@ -24,6 +24,7 @@ public class Health : MonoBehaviour {
     public int health;
     public int maxHealth;
     FloatingDisplay ourHealthDisplay;
+    private int defaultColour = 0;
 
     internal void Iam(WormControl wormControl)
     {
@@ -31,7 +32,7 @@ public class Health : MonoBehaviour {
         health = 100;
         maxHealth = 200;
         ourHealthDisplay = gameObject.AddComponent<FloatingDisplay>();
-        ourHealthDisplay.setDisplay(health.ToString() + " kjkluh" );
+        ourHealthDisplay.setDisplay(health.ToString() );
   
     }
 
@@ -96,5 +97,11 @@ public class Health : MonoBehaviour {
     internal void printHello()
     {
         print("Hello" + health.ToString() + "   " + maxHealth.ToString());
+    }
+
+    internal void wormActive(bool isActive)
+    {
+
+        ourHealthDisplay.setColour(isActive ? 1 :defaultColour );
     }
 }

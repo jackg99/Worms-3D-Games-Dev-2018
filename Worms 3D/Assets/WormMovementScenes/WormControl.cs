@@ -18,6 +18,7 @@ public class WormControl : MonoBehaviour {
     internal void setActive(bool v)
     {
         isActive = v;
+        ourHealth.wormActive(isActive);
     }
 
     bool isActive = false;
@@ -26,19 +27,19 @@ public class WormControl : MonoBehaviour {
     enum Movement  {slither, jump, fall};
 
     Health ourHealth;
-    FloatingDisplay ourDisplay;
-    ProjectileControl projectile;
 
-    int health = 5;
+
+
+
 
 
     // Use this for initialization
     void Start () {
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
+        
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
-        ourDisplay = gameObject.GetComponent<FloatingDisplay>();
 
         Movement movementMode;
 
@@ -49,6 +50,11 @@ public class WormControl : MonoBehaviour {
          FloatingDisplay ourHealthDisplay;
          */
 
+    }
+
+    internal bool isWormActive()
+    {
+        return isActive;
     }
 
     // Update is called once per frame
@@ -72,7 +78,7 @@ public class WormControl : MonoBehaviour {
         if (isActive)
         {
 
-            ourDisplay.setColour(1);
+    
             
             if (shouldGoForward())
             {
@@ -124,10 +130,7 @@ public class WormControl : MonoBehaviour {
             //This allows the worm to stop when the key is released
             direction = Vector3.zero;
         }//End isActive
-        else
-        {
-            ourDisplay.setColour(0);
-        }
+
     }
 
     private bool shouldStrafeRight()

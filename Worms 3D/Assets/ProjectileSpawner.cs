@@ -25,15 +25,15 @@ public class ProjectileSpawner : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-	
-        ourOwner = gameObject.GetComponent<WormControl>();
-        ourOwner.setActive(true);
-        
-	}
+     ourOwner = gameObject.GetComponent<WormControl>();
+
+
+    }
 
     // Update is called once per frame
     void Update() {
-        
+        if (ourOwner.isWormActive())
+        {
             if (Input.GetKey(KeyCode.G))
             {
                 if (strengthMeterDisplay)  // grenade strength being calculated
@@ -72,7 +72,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
                 newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f, ourOwner);
             }
-
+        }
         }
 
         private void createGrenade()
@@ -80,7 +80,7 @@ public class ProjectileSpawner : MonoBehaviour {
             GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
             ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
-            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, transform.position  /*5*transform.forward+ 5*transform.up */, (transform.forward + Vector3.up).normalized,
+            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, transform.position  + 2*transform.forward+ 2*transform.up , (transform.forward + Vector3.up).normalized,
             MaxGrenadeSpeed * strengthMeter.relative(),ourOwner);
 
             Destroy(strengthMeter);
