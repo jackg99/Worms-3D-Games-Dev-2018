@@ -18,6 +18,7 @@ public class WormControl : MonoBehaviour {
     internal void setActive(bool v)
     {
         isActive = v;
+        ourHealth.wormActive(isActive);
     }
 
     bool isActive = false;
@@ -26,15 +27,17 @@ public class WormControl : MonoBehaviour {
     enum Movement  {slither, jump, fall};
 
     Health ourHealth;
-    ProjectileControl projectile;
 
-    int health = 5;
+
+
+
 
 
     // Use this for initialization
     void Start () {
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
+        
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
 
@@ -43,12 +46,19 @@ public class WormControl : MonoBehaviour {
         movementMode = Movement.slither;
 
 
-
+        /* relocated from health script
+         FloatingDisplay ourHealthDisplay;
+         */
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    internal bool isWormActive()
+    {
+        return isActive;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         //Insert Switch Case for deciding movement mode of the Controlled Worm
 
@@ -67,6 +77,8 @@ public class WormControl : MonoBehaviour {
         //shouldGoForward() method defines the key press (w)
         if (isActive)
         {
+
+    
             
             if (shouldGoForward())
             {
@@ -117,7 +129,8 @@ public class WormControl : MonoBehaviour {
 
             //This allows the worm to stop when the key is released
             direction = Vector3.zero;
-        }
+        }//End isActive
+
     }
 
     private bool shouldStrafeRight()
@@ -186,7 +199,7 @@ public class WormControl : MonoBehaviour {
     private void wormWalk()
     {
         timeForSlither += Time.deltaTime;
-        print(( timeForSlither) * (2 * Mathf.PI) / PeriodOfSlither);
+// print(( timeForSlither) * (2 * Mathf.PI) / PeriodOfSlither);
         foreach (Transform child in transform)
             child.localScale = new Vector3(  1 + AmplitudeForWormSlither * Mathf.Sin(((2 * Mathf.PI) * timeForSlither) / PeriodOfSlither)  , 1, 1);
 ;    }
