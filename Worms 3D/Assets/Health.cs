@@ -23,16 +23,20 @@ public class Health : MonoBehaviour {
 
     public int health;
     public int maxHealth;
+    FloatingDisplay ourHealthDisplay;
+    private int defaultColour = 0;
 
     internal void Iam(WormControl wormControl)
     {
+        print("Iam");
         health = 100;
         maxHealth = 200;
         ourHealthDisplay = gameObject.AddComponent<FloatingDisplay>();
-        ourHealthDisplay.setDisplay(health.ToString());
+        ourHealthDisplay.setDisplay(health.ToString() );
+  
     }
 
-    FloatingDisplay ourHealthDisplay;
+
 
 
 
@@ -54,7 +58,7 @@ public class Health : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
+        if (Input.GetKeyDown(KeyCode.Space)) adjustHealth(-5);
 		
 	}
 
@@ -66,10 +70,11 @@ public class Health : MonoBehaviour {
     public void adjustHealth(int hit)
     {
         health += hit;
+        print("Damage of " + hit.ToString());
 
         if(health<=0)
         {
-            death();
+           death();
         }
 
         if(gameObject.tag=="Player" && health>maxHealth)
@@ -77,6 +82,7 @@ public class Health : MonoBehaviour {
             health = 200;
         }
 
+   
         ourHealthDisplay.setDisplay(health.ToString());
 
     }
@@ -86,5 +92,16 @@ public class Health : MonoBehaviour {
         Debug.Log("You dead");
 
         Destroy(gameObject);
+    }
+
+    internal void printHello()
+    {
+        print("Hello" + health.ToString() + "   " + maxHealth.ToString());
+    }
+
+    internal void wormActive(bool isActive)
+    {
+
+        ourHealthDisplay.setColour(isActive ? 1 :defaultColour );
     }
 }

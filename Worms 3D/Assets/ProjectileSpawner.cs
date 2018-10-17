@@ -12,30 +12,82 @@ public class ProjectileSpawner : MonoBehaviour {
 
     public Object grenadePrefab;
     public Object MissilePrefab;
+    FloatingDisplay strengthMeterDisplay;
+    TimeAndDisplayCountup strengthMeter;
+    private float MaxGrenadeSpeed = 40;
 
+
+    WormControl ourOwner;
+
+    
+    
 
     // Use this for initialization
     void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
-            ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
+     ourOwner = gameObject.GetComponent<WormControl>();
 
-            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, new Vector3(2,3,4), new Vector3(1,0,0),  5.0f );  
-        }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
-            ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
-
-            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f);
-        }
 
     }
+
+    // Update is called once per frame
+    void Update() {
+        if (ourOwner.isWormActive())
+        {
+            if (Input.GetKey(KeyCode.G))
+            {
+                if (strengthMeterDisplay)  // grenade strength being calculated
+                {
+                    strengthMeterDisplay.setDisplay(strengthMeter.relativePercentage().ToString());
+
+                    if (strengthMeter.relative() > 1.0f) createGrenade();
+                }
+                else   // STart of launch grenade
+                {
+                    strengthMeterDisplay = gameObject.AddComponent<FloatingDisplay>();
+                    strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
+                    strengthMeter.setDuration(5.0f);
+                    strengthMeter.startTimer();
+
+
+                }
+
+            }
+
+            else
+            {
+                if (strengthMeterDisplay)
+                {
+                    createGrenade();
+
+                }
+
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
+                ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
+
+                newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f, ourOwner);
+            }
+        }
+        }
+
+        private void createGrenade()
+        {
+            GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
+            ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
+
+            newProjectileScript.youAreA(ProjectileControl.ProjectileType.Grenade, transform.position  + 2*transform.forward+ 2*transform.up , (transform.forward + Vector3.up).normalized,
+            MaxGrenadeSpeed * strengthMeter.relative(),ourOwner);
+
+            Destroy(strengthMeter);
+
+            strengthMeterDisplay.manuallyDestroy();
+        }
+
+    
+
 }

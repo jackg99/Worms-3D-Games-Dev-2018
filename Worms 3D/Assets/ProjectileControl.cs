@@ -10,26 +10,38 @@ using UnityEngine;
 
 public class ProjectileControl : MonoBehaviour {
     Vector3 velocity, acceleration;
+
+    float grenadeTimeToExplode = 5.0f;
     Quaternion grenaderotation;
     public float turningSpeed = 45;
+
+    float AOE_radius;
     internal enum ProjectileType {Grenade, Missile, Bullet, Mortar };
     ProjectileType thisProjectile = ProjectileType.Missile;
+
+    WormControl ourOwner;
+    TimeAndDisplayCountup grendeTimer;
+    private float MaxDamage;
+    private readonly float max_damage_dist_ratio = 0.1f;
+
+
 
     // Use this for initialization
     void Start () {
         //velocity = new Vector3(0, 0, 3);
         //acceleration = new Vector3(0, 0,0);
         //grenaderotation =  Quaternion.Euler(1,1,1);
-		
 
-	}
 
-    internal void youAreA(ProjectileType projectileType, Vector3 position, Vector3 direction, float speed)
+    }
+
+    internal void youAreA(ProjectileType projectileType, Vector3 position, Vector3 direction, float speed, WormControl theOwner)
     {
 
         thisProjectile = projectileType;
         transform.position = position;
         velocity = speed * direction;
+        ourOwner = theOwner;
 
         switch (thisProjectile)
         {
@@ -37,7 +49,15 @@ public class ProjectileControl : MonoBehaviour {
        
                 acceleration = new Vector3(0, -9.8f, 0);
                 turningSpeed = 180;
-         
+
+                grendeTimer = gameObject.AddComponent<TimeAndDisplayCountup>();
+                grendeTimer.setDuration(grenadeTimeToExplode);
+                grendeTimer.startTimer();
+                MaxDamage = 50;
+                AOE_radius = 3;
+
+
+                
     
                 break;
 
@@ -77,10 +97,53 @@ public class ProjectileControl : MonoBehaviour {
             case ProjectileType.Grenade:
 
         transform.Rotate(transform.right, turningSpeed * Time.deltaTime); // Grenade
+                if (grendeTimer.isOver())
+                    Explode();
+
                 break;
 
 
     }
+
+    }
+
+    private void Explode()
+    {
+        print("Im exploding");
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, AOE_radius);
+
+        foreach (Collider col in hitColliders)
+        {
+            Health victim = col.gameObject.GetComponent<Health>();
+            if (victim)
+            {
+                victim.printHello();
+                victim.adjustHealth(calculateDamage(victim.transform.position));
+            }
+
+        }
+
+        Destroy(gameObject);
+
+    }
+
+    private int calculateDamage(Vector3 position)
+    {
+        float distance = Vector3.Distance(position, transform.position);
+        if (distance < max_damage_dist_ratio * AOE_radius)
+            return (int) MaxDamage;
+
+        return   20;
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+       // print("Ouch");
+      transform.position -= velocity * Time.deltaTime;
+
+      velocity = new Vector3(velocity.x, -0.5f * velocity.y, velocity.z);
+    
 
     }
 

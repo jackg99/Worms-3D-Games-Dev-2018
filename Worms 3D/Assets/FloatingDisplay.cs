@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,8 @@ using UnityEngine;
 public class FloatingDisplay : MonoBehaviour {
     //string healthValue
     // Use this for initialization
-    GameObject floatingDisplay;
+    public GameObject floatingDisplay;
     TextMesh ourText;
-
      Health  myHealth;
 
 
@@ -21,11 +21,11 @@ public class FloatingDisplay : MonoBehaviour {
 
     void Start () {
 
- 
 
+        
         floatingDisplay = new GameObject("Floating Display");
         floatingDisplay.transform.parent = transform;
-        floatingDisplay.transform.localPosition += 1.65f * Vector3.up;
+        floatingDisplay.transform.localPosition = 1.65f * Vector3.up;
 
 
         ourText = floatingDisplay.AddComponent<TextMesh>();
@@ -40,6 +40,26 @@ public class FloatingDisplay : MonoBehaviour {
         ourText.color = Color.cyan;
 
         
+    }
+
+    public void setColour(int colorCode)
+    {
+        Color orange = new Color(255, 165, 0);
+
+        switch (colorCode)
+        {
+            case 1:     ourText.color = Color.blue;
+                        break;
+            case 2:     ourText.color = orange;
+                        break;
+            case 3:     ourText.color = Color.yellow;
+                        break;
+            case 4:     ourText.color = Color.magenta;
+                        break;
+            default:    ourText.color = Color.cyan;
+                        break;
+        }
+            
     }
 
 
@@ -65,6 +85,11 @@ public class FloatingDisplay : MonoBehaviour {
 
         floatingDisplay.transform.rotation = Quaternion.LookRotation((-Camera.main.transform.position+floatingDisplay.transform.position).normalized);//Camera.main.transform.rotation;
 	}
-    
-   
+
+    internal void manuallyDestroy()
+    {
+        Destroy(floatingDisplay);
+        Destroy(this);
+    }
+
 }
