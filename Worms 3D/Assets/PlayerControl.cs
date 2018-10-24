@@ -14,14 +14,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+
+    int numberOfTeams = 4;
+
     int current_Worm_Index = -1;
+    int current_Team_Index = -1;
     List<WormControl> allWorms;
-    List<List<WormControl>> allTeams;
-    List<WormControl> tempTeam;
-    List<WormControl> team1;
-    List<WormControl> team2;
-    List<WormControl> team3;
-    List<WormControl> team4;
+    List<Team> allTeams;
+
+
     public Object WormPrefab;
     bool someWormActive = false;
     private int numTeams;
@@ -31,33 +32,27 @@ public class PlayerControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         allWorms = new List<WormControl>();
-        tempTeam = new List<WormControl>();
 
-        numTeams = 3;
+
+        numTeams = 6;
         numWormsPerTeam = 4;
-        allTeams = new List<List<WormControl>>(numTeams);
+        allTeams = new List<Team>();
 
-        for (int i = 0; i < numTeams; i++)
-            allTeams.Add(spawnTeam(i,i));
-
-        //Team code
-       
-        team1 = new List<WormControl>();
+        for (int teamId = 0; teamId < numTeams; teamId++)
+            allTeams.Add(new Team(teamId, numWormsPerTeam));
 
 
-        //spawnWorms();
-     
-        //spawnTeam(team1,1);
-        //spawnTeam(team2,2);
-        //spawnTeam(team3,3);
-        //spawnTeam(team4,4);
+        spawnWorms();
 
-        Debug.Log(team1.Count);
+        foreach (Team team in allTeams)
+        {
+            team.updateWormColours();
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*
+      
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (someWormActive)
@@ -67,32 +62,35 @@ public class PlayerControl : MonoBehaviour {
             
             someWormActive = true;
 
-                current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
+            current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
             allWorms[current_Worm_Index].setActive(true); 
         }
-        */
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (someWormActive)
-            {
-                team1[current_Worm_Index].setActive(false);
-            }
 
-            someWormActive = true;
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    if (someWormActive)
+        //    {
+        //        team1[current_Worm_Index].setActive(false);
+        //    }
 
-            current_Worm_Index = (current_Worm_Index + 1) % team1.Count;
-            team1[current_Worm_Index].setActive(true);
-        }
+        //    someWormActive = true;
+
+        //    current_Worm_Index = (current_Worm_Index + 1) % team1.Count;
+        //    team1[current_Worm_Index].setActive(true);
+        //}
     }
 
     void spawnWorms()
     {
-        for (int i = 0; i < 4; i++)
-            for(int j = 0; j < 4; j++)
+        for (int teamId = 0; teamId < numberOfTeams; teamId++)
+            for(int playerId = 0; playerId < numWormsPerTeam; playerId++)
             {
             
-                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(4*i,0.2f,4*j), Quaternion.identity);
-                allWorms.Add(temp.GetComponent<WormControl>());
+                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(4*teamId,0.2f,4*playerId), Quaternion.identity);
+                WormControl ourNewWorm = temp.GetComponent<WormControl>();
+                allWorms.Add(ourNewWorm);
+                allTeams[teamId].AddMember(ourNewWorm);
+                ourNewWorm.YoureOnTeam(teamId);
 
          
             }
@@ -108,5 +106,23 @@ public class PlayerControl : MonoBehaviour {
             hold[hold.Count - 1].YoureOnTeam(teamId);
         }
         return hold;
+    }
+
+    internal void nextTeamSelect()
+    {
+
+        // This code iterates though the list of teams
+        current_Team_Index = (current_Team_Index + 1) % allTeams.Count;
+        
+    }
+
+    internal void nextWormSelect()
+    {
+
+        // This code is attempting to iterate through the worms on a team, while keeping track of which 
+        // worm is currently selected on the team.
+        allTeams[current_Team_Index].incWorm(); // <----
+            current_Worm_Index = (current_Worm_Index + 1) % allTeams.Count;
+        allWorms[current_Worm_Index].setActive(true);
     }
 }
