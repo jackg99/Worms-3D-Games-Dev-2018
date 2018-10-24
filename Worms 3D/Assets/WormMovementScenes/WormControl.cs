@@ -133,6 +133,11 @@ public class WormControl : MonoBehaviour {
 
     }
 
+    internal void YoureOnTeam(int j)
+    {
+     //   ourHealth.ImOnTeam(j);
+    }
+
     private bool shouldStrafeRight()
     {
         return Input.GetKey("e");
