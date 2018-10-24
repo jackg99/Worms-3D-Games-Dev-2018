@@ -104,4 +104,9 @@ public class Health : MonoBehaviour {
 
         ourHealthDisplay.setColour(isActive ? 1 :defaultColour );
     }
+
+    internal void ImOnTeam(int j)
+    {
+        defaultColour  = j;
+    }
 }
