@@ -36,13 +36,13 @@ public class PlayerControl : MonoBehaviour {
         numTeams = 3;
         numWormsPerTeam = 4;
         allTeams = new List<List<WormControl>>(numTeams);
+        spawnWorms();
+        //for (int i = 0; i < numTeams; i++)
+        //    allTeams.Add(spawnTeam(i,i));
 
-        for (int i = 0; i < numTeams; i++)
-            allTeams.Add(spawnTeam(i,i));
-
-        //Team code
+        ////Team code
        
-        team1 = new List<WormControl>();
+        //team1 = new List<WormControl>();
 
 
         //spawnWorms();
@@ -57,7 +57,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*
+      
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (someWormActive)
@@ -67,22 +67,22 @@ public class PlayerControl : MonoBehaviour {
             
             someWormActive = true;
 
-                current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
+            current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
             allWorms[current_Worm_Index].setActive(true); 
         }
-        */
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (someWormActive)
-            {
-                team1[current_Worm_Index].setActive(false);
-            }
+   
+        //if (Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    if (someWormActive)
+        //    {
+        //        team1[current_Worm_Index].setActive(false);
+        //    }
 
-            someWormActive = true;
+        //    someWormActive = true;
 
-            current_Worm_Index = (current_Worm_Index + 1) % team1.Count;
-            team1[current_Worm_Index].setActive(true);
-        }
+        //    current_Worm_Index = (current_Worm_Index + 1) % team1.Count;
+        //    team1[current_Worm_Index].setActive(true);
+        //}
     }
 
     void spawnWorms()
