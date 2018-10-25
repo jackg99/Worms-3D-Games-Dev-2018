@@ -19,7 +19,7 @@ public class FloatingDisplay : MonoBehaviour {
     string displayString;
     private bool needToUpdateDisplay;
 
-    void Start () {
+    void Awake () {
 
 
         
@@ -37,7 +37,7 @@ public class FloatingDisplay : MonoBehaviour {
         MeshRenderer rend = ourText.GetComponent<MeshRenderer>();
         rend.material = font.material;
         ourText.font = font;
-        ourText.color = Color.cyan;
+    
 
         
     }
@@ -52,7 +52,7 @@ public class FloatingDisplay : MonoBehaviour {
                         break;
             case 2:     ourText.color = orange;
                         break;
-            case 3:     ourText.color = Color.yellow;
+            case 3:     ourText.color = Color.green;
                         break;
             case 4:     ourText.color = Color.magenta;
                         break;

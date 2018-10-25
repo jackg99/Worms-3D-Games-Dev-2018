@@ -15,6 +15,11 @@ public class WormControl : MonoBehaviour {
     float walkingSpeed = 2,turningSpeed = 45, jumpForce = 7;
     private float timeForSlither;
 
+    internal void updateTeamColour(int teamId)
+    {
+        ourHealth.upDateColorTo(teamId);
+    }
+
     internal void setActive(bool v)
     {
         isActive = v;
@@ -34,7 +39,7 @@ public class WormControl : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
         
@@ -135,7 +140,7 @@ public class WormControl : MonoBehaviour {
 
     internal void YoureOnTeam(int j)
     {
-     //   ourHealth.ImOnTeam(j);
+      ourHealth.ImOnTeam(j);
     }
 
     private bool shouldStrafeRight()
