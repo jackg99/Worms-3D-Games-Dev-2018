@@ -33,6 +33,7 @@ public class Health : MonoBehaviour {
         maxHealth = 200;
         ourHealthDisplay = gameObject.AddComponent<FloatingDisplay>();
         ourHealthDisplay.setDisplay(health.ToString() );
+        ourHealthDisplay.setColour(defaultColour);
   
     }
 
@@ -41,7 +42,7 @@ public class Health : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
   
 
@@ -102,11 +103,18 @@ public class Health : MonoBehaviour {
     internal void wormActive(bool isActive)
     {
 
-        ourHealthDisplay.setColour(isActive ? 1 :defaultColour );
+        ourHealthDisplay.setColour(isActive ? 0 :defaultColour );
     }
 
     internal void ImOnTeam(int j)
     {
         defaultColour  = j;
+     
+    }
+
+    internal void upDateColorTo(int teamId)
+    {
+        defaultColour = teamId+1;
+        ourHealthDisplay.setColour(defaultColour);
     }
 }
