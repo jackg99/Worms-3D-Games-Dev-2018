@@ -34,12 +34,15 @@ public class PlayerControl : MonoBehaviour {
         allWorms = new List<WormControl>();
 
 
+
+
         numTeams = 6;
         numWormsPerTeam = 4;
         allTeams = new List<Team>();
 
         for (int teamId = 0; teamId < numTeams; teamId++)
             allTeams.Add(new Team(teamId, numWormsPerTeam));
+
 
 
         spawnWorms();
