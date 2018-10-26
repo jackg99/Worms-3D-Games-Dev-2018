@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,13 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour {
 
-    public Object grenadePrefab;
-    public Object MissilePrefab;
+    public UnityEngine.Object grenadePrefab;
+    public UnityEngine.Object MissilePrefab;
     FloatingDisplay strengthMeterDisplay;
     TimeAndDisplayCountup strengthMeter;
     private float MaxGrenadeSpeed = 40;
-
-
+    AimCameraControl ourAimCam;
+    GameObject crosshairs;
     WormControl ourOwner;
 
     
@@ -26,7 +27,6 @@ public class ProjectileSpawner : MonoBehaviour {
     void Start () {
 
      ourOwner = gameObject.GetComponent<WormControl>();
-
 
     }
 
@@ -65,17 +65,64 @@ public class ProjectileSpawner : MonoBehaviour {
             }
 
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKey(KeyCode.M))
             {
-                GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
-                ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
+                if (ourAimCam)
+                {
+                   ourAimCam.transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
+                   ourAimCam.transform.Rotate(transform.right, Input.GetAxis("Vertical"));
+                    if (crosshairs)
+                    {
+                        crosshairs.transform.position = ourAimCam.transform.position + 50.0f * ourAimCam.transform.forward;
+                    }
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
+                        ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
-                newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, new Vector3(-2, 3, 4), new Vector3(0, 1, 0), 15.0f, ourOwner);
+                        newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, ourAimCam.transform.position, ourAimCam.transform.forward, 15.0f, ourOwner);
+                        DestroyAimCam();
+                        ourOwner.setActive(false);
+                    }
+                }
+
+                else
+                {
+                    GameObject cam = new GameObject();
+                    cam.AddComponent<Camera>();
+                    ourAimCam = cam.gameObject.AddComponent<AimCameraControl>();
+
+                    ourAimCam.transform.position = transform.position + 2.0f * Vector3.up - 2.0f * transform.forward;
+                    ourAimCam.transform.rotation = transform.rotation;
+
+                    crosshairs = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+
+
+                     
+                        }
+                    
+
+            }
+
+            else  // M released (or not pressed)
+            {
+                if (ourAimCam)
+                {
+                    Destroy(ourAimCam.gameObject);
+                    Destroy(crosshairs);
+                }
+
             }
         }
         }
 
-        private void createGrenade()
+    private void DestroyAimCam()
+    {
+        Destroy(crosshairs);
+        Destroy(ourAimCam.gameObject,2.0f);
+    }
+
+    private void createGrenade()
         {
             GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
             ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();

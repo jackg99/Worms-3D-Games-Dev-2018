@@ -56,17 +56,14 @@ public class ProjectileControl : MonoBehaviour {
                 MaxDamage = 50;
                 AOE_radius = 3;
 
-
-                
-    
                 break;
 
             case ProjectileType.Missile:
 
                 acceleration = new Vector3(0, 0, 0);
                 turningSpeed = 360;
-      
- 
+                AOE_radius = 10;
+                MaxDamage = 100;
                 break;
 
             case ProjectileType.Bullet:
@@ -91,7 +88,7 @@ public class ProjectileControl : MonoBehaviour {
 
             case ProjectileType.Missile:
         transform.Rotate(transform.forward, turningSpeed * Time.deltaTime); // rocket
-
+               
                 break;
 
             case ProjectileType.Grenade:
@@ -107,7 +104,7 @@ public class ProjectileControl : MonoBehaviour {
 
     }
 
-    private void Explode()
+    public void Explode()
     {
         print("Im exploding");
 
@@ -132,18 +129,41 @@ public class ProjectileControl : MonoBehaviour {
     {
         float distance = Vector3.Distance(position, transform.position);
         if (distance < max_damage_dist_ratio * AOE_radius)
-            return (int) MaxDamage;
+            return (int)-MaxDamage;
 
-        return   20;
+
+        return (int) Mathf.Clamp((-MaxDamage * (AOE_radius - distance) / ((1.0f - max_damage_dist_ratio) * AOE_radius)),-MaxDamage,0);
+
+      
     }
 
     private void OnCollisionEnter(Collision col)
     {
-       // print("Ouch");
-      transform.position -= velocity * Time.deltaTime;
+        print("Ouch");
 
-      velocity = new Vector3(velocity.x, -0.5f * velocity.y, velocity.z);
-    
+        switch (thisProjectile)
+        {
+
+            case ProjectileType.Grenade:
+
+
+                transform.position -= velocity * Time.deltaTime;
+
+                velocity = new Vector3(velocity.x, -0.5f * velocity.y, velocity.z);
+                break;
+
+            case ProjectileType.Missile:
+                    
+                for (int i = 0;i<12;i++)
+                { print(calculateDamage(transform.position + AOE_radius * i / 10 * Vector3.left));
+                }
+
+
+
+                Explode();
+
+                break;
+    }
 
     }
 

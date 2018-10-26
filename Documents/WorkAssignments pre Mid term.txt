@@ -1,0 +1,14 @@
+1	Explosions	Create gameobject with explosion controller script (allow AOE radius colour, etc to be changed), use a particle system effect, call by instantiating in obvious places
+2.	Score		Create a score game object which has "Floating text" and script which allows positioning and colour change etc. updating etc..
+3.	Menu		Create a basic Menu system, Using F"loating Text" to display basic startup options and starts game, returns to menu etc...
+4.	Inventory	A basic script to keep track of the inventory of each team
+5.	Camera Control	A script to move the camera
+6.	Game Manager	Create a gameobject with a Game Manager script, Creates the overall area with surrounding Wall
+7.	Create Wall	Script for Game Manager, are walls destructible or not?
+8	JUmp		Implement jump in worm control
+9. 	Create platform  Script to go into Game manager
+10.	Fire Bullets	
+11	Fix Grenade Display
+12	Fix Missile camera movement
+13	Create a symmetry function, (will explain) for placing of worms and creation of arena
+
