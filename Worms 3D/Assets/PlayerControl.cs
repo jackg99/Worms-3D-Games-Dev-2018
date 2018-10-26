@@ -124,7 +124,7 @@ public class PlayerControl : MonoBehaviour {
 
         // This code is attempting to iterate through the worms on a team, while keeping track of which 
         // worm is currently selected on the team.
-        allTeams[current_Team_Index].incWorm(); // <----
+       // allTeams[current_Team_Index].incWorm(); // <----
             current_Worm_Index = (current_Worm_Index + 1) % allTeams.Count;
         allWorms[current_Worm_Index].setActive(true);
     }
