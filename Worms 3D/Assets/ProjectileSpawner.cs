@@ -106,7 +106,11 @@ public class ProjectileSpawner : MonoBehaviour {
 
             else  // M released (or not pressed)
             {
-               if (ourAimCam) Destroy(ourAimCam.gameObject);
+                if (ourAimCam)
+                {
+                    Destroy(ourAimCam.gameObject);
+                    Destroy(crosshairs);
+                }
 
             }
         }
