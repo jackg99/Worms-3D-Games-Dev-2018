@@ -25,9 +25,11 @@ public class Health : MonoBehaviour {
     public int maxHealth;
     FloatingDisplay ourHealthDisplay;
     private int defaultColour = 0;
+    WormControl owningWorm;
 
     internal void Iam(WormControl wormControl)
     {
+        owningWorm = wormControl;
         print("Iam");
         health = 100;
         maxHealth = 200;
@@ -91,8 +93,7 @@ public class Health : MonoBehaviour {
     void death()
     {
         Debug.Log("You dead");
-
-        Destroy(gameObject);
+        owningWorm.yourDead();
     }
 
     internal void printHello()
