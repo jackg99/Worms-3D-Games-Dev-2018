@@ -57,6 +57,22 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
       
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (someWormActive)
+            {
+                allWorms[current_Worm_Index].setActive(false);
+            }
+            
+            someWormActive = true;
+
+            current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
+            allWorms[current_Worm_Index].setActive(true); 
+        }
+       
+
+
         //if (Input.GetKeyDown(KeyCode.Tab))
         //{
         //    if (someWormActive)
@@ -123,12 +139,11 @@ public class PlayerControl : MonoBehaviour {
 
     internal void nextWormSelect()
     {
-
-        // This code is attempting to iterate through the worms on a team, while keeping track of which 
-        // worm is currently selected on the team.
+ 
 
         
         allTeams[current_Team_Index].incWorm(); // <----
+
             //current_Worm_Index = (current_Worm_Index + 1) % allTeams.Count;
         //allWorms[current_Worm_Index].setActive(true);
     }
@@ -136,6 +151,7 @@ public class PlayerControl : MonoBehaviour {
     internal void wormDead(WormControl wormControl)
     {
         throw new NotImplementedException();
+
 
 
 
