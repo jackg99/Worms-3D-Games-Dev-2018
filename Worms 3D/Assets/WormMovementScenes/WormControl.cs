@@ -45,6 +45,7 @@ public class WormControl : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
+       // gameObject.SetActive(false);
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
         
