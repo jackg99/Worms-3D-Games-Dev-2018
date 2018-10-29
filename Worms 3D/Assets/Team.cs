@@ -9,8 +9,9 @@ using System.Text;
         List<WormControl> members;
         int teamId;
         int _numberofMembers;
-        public int notGettingBlamedForThat = -1;
-        public Team(int Id, int number_of_members)
+        int memberId = -1;
+        //bool someWormActive = false;
+    public Team(int Id, int number_of_members)
     {
         teamId = Id;
 
@@ -31,5 +32,38 @@ using System.Text;
 
         members.Add(ourNewWorm);
     }
+    public int getMemberId()
+    {
+        return memberId;
+    }
+
+    public void setCurrentWormInactive()
+    {
+        members[memberId].setActive(false);
+        
+    }
+
+    internal void incWorm()
+    {
+
+        
+        //if (someWormActive)
+        //{
+        //    members[memberId].setActive(false);
+        //}
+
+        //someWormActive = true;
+            
+        memberId = (memberId + 1) % _numberofMembers;
+
+        if(members[memberId] == null)
+        {
+            memberId = (memberId + 1) % _numberofMembers;
+        }
+
+        members[memberId].setActive(true);
+    }
+
+    
 }
 

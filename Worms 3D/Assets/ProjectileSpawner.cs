@@ -39,7 +39,9 @@ public class ProjectileSpawner : MonoBehaviour {
                 if (strengthMeterDisplay)  // grenade strength being calculated
                 {
                     strengthMeterDisplay.setDisplay(strengthMeter.relativePercentage().ToString());
-
+                    
+                    //strengthMeterDisplay.transform.localPosition += 0.5f * Vector3.up;                    I tried to make the grenade strength meter go above the health but i think ill just go for hiding the health and making it re-appear
+                   // strengthMeterDisplay.transform.position += 0.5f * Vector3.up;
                     if (strengthMeter.relative() > 1.0f) createGrenade();
                 }
                 else   // STart of launch grenade
@@ -48,7 +50,7 @@ public class ProjectileSpawner : MonoBehaviour {
                     strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
                     strengthMeter.setDuration(5.0f);
                     strengthMeter.startTimer();
-
+                    //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
 
                 }
 
