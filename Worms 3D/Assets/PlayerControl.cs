@@ -141,6 +141,7 @@ public class PlayerControl : MonoBehaviour {
     {
  
 
+
         
         allTeams[current_Team_Index].incWorm(); // <----
 
@@ -155,5 +156,6 @@ public class PlayerControl : MonoBehaviour {
 
 
 
+r
     }
 }

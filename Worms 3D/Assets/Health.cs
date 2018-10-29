@@ -57,10 +57,6 @@ public class Health : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-  
-
-
-
         if(gameObject.tag=="Wall")
         {
             health = 500;
