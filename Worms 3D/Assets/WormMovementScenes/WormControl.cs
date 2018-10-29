@@ -8,6 +8,11 @@ public class WormControl : MonoBehaviour {
     Vector3 direction, velocity, acceleration;
     float AmplitudeForWormSlither = 0.1f;
     float PeriodOfSlither = 1;
+    PlayerControl myController;
+    Team myTeam;
+
+    int imOnTeam;
+    int teamMember;
 
 
 
@@ -40,6 +45,7 @@ public class WormControl : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
+       // gameObject.SetActive(false);
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
         
@@ -138,10 +144,32 @@ public class WormControl : MonoBehaviour {
 
     }
 
+    internal void introduction(PlayerControl playerControl)
+    {
+        myController = playerControl;
+    }
+
+    internal void yourDead()
+    {
+        myController.wormDead(this);
+    }
+
     internal void YoureOnTeam(int j)
     {
       ourHealth.ImOnTeam(j);
+        imOnTeam = j;
     }
+
+    public int whatisMyTeam()
+    {
+        return imOnTeam;
+    }
+
+    //public int whatMember()
+    //{
+    //    teamMember = myTeam.memberId;
+    //    return teamMember;
+    //}
 
     private bool shouldStrafeRight()
     {

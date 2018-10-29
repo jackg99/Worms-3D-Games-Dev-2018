@@ -9,8 +9,13 @@ using System.Text;
         List<WormControl> members;
         int teamId;
         int _numberofMembers;
+
         public int notGettingBlamedForThat = -1;
         Inventory teamInv = new Inventory();
+
+
+        int memberId = -1;
+        //bool someWormActive = false;
 
     public Team(int Id, int number_of_members)
     {
@@ -34,6 +39,7 @@ using System.Text;
     {
         members.Add(ourNewWorm);
     }
+
 
 
     //Inventory Code
@@ -76,5 +82,40 @@ using System.Text;
         Console.Write(teamInv.toString());
     }
     //End of Inventory Code
+
+    public int getMemberId()
+    {
+        return memberId;
+    }
+
+    public void setCurrentWormInactive()
+    {
+        members[memberId].setActive(false);
+        
+    }
+
+    internal void incWorm()
+    {
+
+        
+        //if (someWormActive)
+        //{
+        //    members[memberId].setActive(false);
+        //}
+
+        //someWormActive = true;
+            
+        memberId = (memberId + 1) % _numberofMembers;
+
+        if(members[memberId] == null)
+        {
+            memberId = (memberId + 1) % _numberofMembers;
+        }
+
+        members[memberId].setActive(true);
+    }
+
+    
+
 }
 
