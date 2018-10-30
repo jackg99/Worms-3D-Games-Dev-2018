@@ -25,28 +25,37 @@ public class Health : MonoBehaviour {
     public int maxHealth;
     FloatingDisplay ourHealthDisplay;
     private int defaultColour = 0;
+    WormControl owningWorm;
 
     internal void Iam(WormControl wormControl)
     {
+        owningWorm = wormControl;
         print("Iam");
         health = 100;
         maxHealth = 200;
         ourHealthDisplay = gameObject.AddComponent<FloatingDisplay>();
-        ourHealthDisplay.setDisplay(health.ToString() );
+       /* if (Input.GetKey(KeyCode.G))
+        {                                               IGNORE THIS
+            String jeff = "";
+            ourHealthDisplay.setDisplay(jeff);
+        }
+        else*/
+        
+        ourHealthDisplay.setDisplay(health.ToString());
         ourHealthDisplay.setColour(defaultColour);
-  
+
+       /* if (Input.GetKey(KeyCode.G))
+        {                                               IGNORE THIS
+            String jeff = "";
+            ourHealthDisplay.setDisplay(jeff);
+        }
+        */
     }
-
-
 
 
 
 	// Use this for initialization
 	void Awake () {
-
-  
-
-
 
         if(gameObject.tag=="Wall")
         {
@@ -60,8 +69,9 @@ public class Health : MonoBehaviour {
 	void Update () {
 
         if (Input.GetKeyDown(KeyCode.Space)) adjustHealth(-5);
-		
-	}
+       // if (Input.GetKey(KeyCode.G)) EnableHealthDisplay(false);        //trying to make the health numbers disappear when a grenade is thrown as the text overlaps, this makes everything disappear when you press g.
+        //if (Input.GetKey(KeyCode.M)) EnableHealthDisplay(true);         //trying to make the health reappear however it doesnt work.
+    }
 
     public int getHealth()
     {
@@ -91,8 +101,7 @@ public class Health : MonoBehaviour {
     void death()
     {
         Debug.Log("You dead");
-
-        Destroy(gameObject);
+        owningWorm.yourDead();
     }
 
     internal void printHello()
@@ -112,6 +121,11 @@ public class Health : MonoBehaviour {
      
     }
 
+
+    /*internal  void  EnableHealthDisplay(bool yesorno)
+    {
+        ourHealthDisplay.gameObject.SetActive(yesorno);
+    }*/
     internal void upDateColorTo(int teamId)
     {
         defaultColour = teamId+1;
