@@ -6,11 +6,11 @@ using UnityEngine;
 
 class Team
     {
-        List<WormControl> members;
-        int index_of_CurrentlyActive_Worm = 0;
+        public List<WormControl> members;
+        int index_of_CurrentlyActive_Worm = -1;
         int teamId;
         int _numberofMembers;
-        public int notGettingBlamedForThat = -1;
+        public int memberId = 0;
         public Team(int Id, int number_of_members)
     {
         teamId = Id;
