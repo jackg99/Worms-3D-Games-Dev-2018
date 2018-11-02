@@ -19,7 +19,7 @@ public class wall : MonoBehaviour {
         else
         {
             isDestructable = true;
-            wallHealth.health = 500;
+          //  wallHealth.health = 500;
         }
 	}
 	
