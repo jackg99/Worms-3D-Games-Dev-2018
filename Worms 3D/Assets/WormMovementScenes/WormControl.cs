@@ -135,7 +135,6 @@ public class WormControl : MonoBehaviour {
                 jump();
             }
 
-
             //The movement equation, updates position of the worm on key press
             transform.position += walkingSpeed * direction /*+ acceleration */* Time.deltaTime;
 

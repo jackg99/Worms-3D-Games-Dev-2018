@@ -11,12 +11,15 @@ class Team
         int teamId;
         int _numberofMembers;
         public int memberId = 0;
-        public Team(int Id, int number_of_members)
+        internal Inventory teamInventory;
+
+    public Team(int Id, int number_of_members)
     {
         teamId = Id;
 
         _numberofMembers = number_of_members;
         members = new List<WormControl>();
+        teamInventory = new Inventory();
 
         }
     internal void updateWormColours()

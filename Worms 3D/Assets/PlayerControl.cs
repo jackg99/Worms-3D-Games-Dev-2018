@@ -18,10 +18,11 @@ public class PlayerControl : MonoBehaviour {
     int numberOfTeams = 4;
 
     int current_Worm_Index = -1;
-    int current_Team_Index = -1;
+    internal int current_Team_Index = -1;
     List<WormControl> allWorms;
-    List<Team> allTeams;
+    internal List<Team> allTeams;
     WormControl currentActiveWorm;
+
 
 
     public Object WormPrefab;
@@ -67,6 +68,41 @@ public class PlayerControl : MonoBehaviour {
         {
             nextWormSelect();
         }
+
+        //temporary code that allows user to add/remove rockets and grenades and to show inventory
+
+        //-add 1 rocket with l
+        if (Input.GetKeyDown("l"))
+        {
+            allTeams[current_Team_Index].teamInventory.addRockets(1);
+        }
+
+        //-remove 1 rocket with k
+        if (Input.GetKeyDown("k"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeRockets(1);
+        }
+
+        //-add 1 grenade with p
+        if (Input.GetKeyDown("p"))
+        {
+            allTeams[current_Team_Index].teamInventory.addGrenades(1);
+        }
+
+        //-remove 1 grenade with o
+        if (Input.GetKeyDown("o"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeGrenades(1);
+        }
+
+        //-display the inventory with i
+        if (Input.GetKey("i"))
+        {
+            Debug.Log(allTeams[current_Team_Index].teamInventory.toString());
+        }
+
+        //End rocket/grenade code
+
 
 
     }
@@ -124,4 +160,6 @@ public class PlayerControl : MonoBehaviour {
         print("Worm Removed from list");
 
     }
+
+
 }
