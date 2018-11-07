@@ -48,7 +48,8 @@ public class WormControl : MonoBehaviour {
        // gameObject.SetActive(false);
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
-        
+        myController = FindObjectOfType<PlayerControl>();
+
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
 
@@ -149,10 +150,14 @@ public class WormControl : MonoBehaviour {
         myController = playerControl;
     }
 
-   /* internal void yourDead()
+    internal void yourDead()
     {
         myController.wormDead(this);
-    }*/
+
+        Destroy(gameObject);
+
+    }
+
 
     internal void YoureOnTeam(int j)
     {
@@ -165,11 +170,11 @@ public class WormControl : MonoBehaviour {
         return imOnTeam;
     }
 
-    //public int whatMember()
-    //{
-    //    teamMember = myTeam.memberId;
-    //    return teamMember;
-    //}
+    public int whatMemberOfTeam()
+    {
+        teamMember = myTeam.memberId;
+        return teamMember;
+    }
 
     private bool shouldStrafeRight()
     {
