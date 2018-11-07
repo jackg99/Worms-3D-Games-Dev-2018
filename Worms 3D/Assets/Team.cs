@@ -36,6 +36,11 @@ class Team
     internal WormControl  incWorm()
     {   
         index_of_CurrentlyActive_Worm = (index_of_CurrentlyActive_Worm + 1) % _numberofMembers;
+
+        while (members[index_of_CurrentlyActive_Worm] == null)
+        {
+            index_of_CurrentlyActive_Worm = (index_of_CurrentlyActive_Worm + 1) % _numberofMembers;
+        }
         Debug.Log("Worm index is " + index_of_CurrentlyActive_Worm.ToString());
         members[index_of_CurrentlyActive_Worm].setActive(true);
         return members[index_of_CurrentlyActive_Worm];

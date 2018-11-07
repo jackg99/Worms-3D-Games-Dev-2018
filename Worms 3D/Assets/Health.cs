@@ -101,7 +101,7 @@ public class Health : MonoBehaviour {
     void death()
     {
         Debug.Log("You dead");
-       // owningWorm.yourDead();
+        owningWorm.yourDead();
     }
 
     internal void printHello()
