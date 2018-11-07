@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 1713295148923438, guid: 7489853a2a737a94d8bc4b7953ea584d,
     type: 2}
-  surroundingWallPrefab: {fileID: 1681467679772516, guid: c51771f26e5b3934696cd86870c025cc,
+  surroundingWallPrefab: {fileID: 1679693552481798, guid: 613babe449e9e5a459465b3489faf6bf,
     type: 2}
   platformPrefab: {fileID: 0}
 --- !u!4 &696313982
