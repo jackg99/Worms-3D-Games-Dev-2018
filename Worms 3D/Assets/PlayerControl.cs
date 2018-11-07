@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour {
     int numberOfTeams = 4;
 
     int current_Worm_Index = -1;
-    int current_Team_Index = 0;
+    int current_Team_Index = -1;
     List<WormControl> allWorms;
     List<Team> allTeams;
     WormControl currentActiveWorm;
@@ -115,6 +115,13 @@ public class PlayerControl : MonoBehaviour {
         }
 
         currentActiveWorm = allTeams[current_Team_Index].incWorm(); // <----
+
+    }
+     public void wormDead(WormControl worm)
+    {
+
+        allTeams[worm.whatisMyTeam()].members.Remove(worm);
+        print("Worm Removed from list");
 
     }
 }
