@@ -119,7 +119,9 @@ public class PlayerControl : MonoBehaviour {
     }
      public void wormDead(WormControl worm)
     {
+
         allTeams[worm.whatisMyTeam()].members.Remove(worm);
         print("Worm Removed from list");
+
     }
 }
