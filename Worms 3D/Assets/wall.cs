@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class wall : MonoBehaviour {
     Health wallHealth;
-    bool isDestructable;
+    public bool isDestructable;
+    public int wallHealthTest=1; // This varaible is only for testing purposes
    
     
 
@@ -19,19 +20,26 @@ public class wall : MonoBehaviour {
         else
         {
             isDestructable = true;
-          //  wallHealth.health = 500;
+            wallHealthTest = 100; // testing purposes only
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if(wallHealth.health<=0)
+        if(wallHealthTest<=0)
         {
             Destroy(gameObject);
         }
 		
 	}
 
-  
+    //I only created this for testing as I got errors
+    private void OnCollisionEnter(Collision collision)
+    {
+        wallHealthTest = wallHealthTest - 10;
+        
+    }
+
+
 }

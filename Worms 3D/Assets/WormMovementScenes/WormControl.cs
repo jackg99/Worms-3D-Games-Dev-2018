@@ -149,10 +149,10 @@ public class WormControl : MonoBehaviour {
         myController = playerControl;
     }
 
-    internal void yourDead()
+   /* internal void yourDead()
     {
         myController.wormDead(this);
-    }
+    }*/
 
     internal void YoureOnTeam(int j)
     {
