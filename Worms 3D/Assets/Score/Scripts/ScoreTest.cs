@@ -18,8 +18,6 @@ public class ScoreTest : MonoBehaviour
     {
         //Calls the method to set the score
         setScore();
-        //Calls the method to set the size of the text
-        ourScore.setFontSize(25);
     }
 
     //Increments the score each time you press space

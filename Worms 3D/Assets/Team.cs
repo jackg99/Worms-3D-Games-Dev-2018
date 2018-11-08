@@ -19,11 +19,11 @@ class Team
 
         _numberofMembers = number_of_members;
         members = new List<WormControl>();
-        GameObject score = new GameObject("Score");
-        TextMesh scoreText = score.AddComponent<TextMesh>();
-        scoreText.text = "Hello";
-        ScoreScript scoreScript = score.AddComponent<ScoreScript>();
-      
+        //GameObject score = new GameObject("Score");
+        //TextMesh scoreText = score.AddComponent<TextMesh>();
+        //scoreText.text = "Score";
+        //ScoreScript scoreScript = score.AddComponent<ScoreScript>();
+        
 
 
         }
