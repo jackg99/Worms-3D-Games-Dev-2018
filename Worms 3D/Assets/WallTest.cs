@@ -11,12 +11,12 @@ public class WallTest : MonoBehaviour {
 	void Start () {
         myWall = gameObject.GetComponent<wall>();
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            Instantiate(WallPrefab);
-        }
-		
-	}
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    Instantiate(WallPrefab);
+        //}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
