@@ -221,9 +221,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 1713295148923438, guid: 7489853a2a737a94d8bc4b7953ea584d,
     type: 2}
-  surroundingWallPrefab: {fileID: 1681467679772516, guid: c51771f26e5b3934696cd86870c025cc,
+  surroundingWallPrefab: {fileID: 1679693552481798, guid: 613babe449e9e5a459465b3489faf6bf,
     type: 2}
-  platformPrefab: {fileID: 0}
+  platformPrefab: {fileID: 1377077512786652, guid: 8eea7405dcf1f1f4f8973a4aae6fa232,
+    type: 2}
+  xMaxBounds: 250
+  xMinBounds: -250
+  zMaxBounds: 250
+  zMinBounds: -250
 --- !u!4 &696313982
 Transform:
   m_ObjectHideFlags: 0
