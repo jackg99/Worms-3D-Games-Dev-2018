@@ -35,11 +35,11 @@ public class wall : MonoBehaviour {
 	}
 
     //I only created this for testing as I got errors
-    private void OnCollisionEnter(Collision collision)
-    {
-        wallHealthTest = wallHealthTest - 10;
-        
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    wallHealthTest = wallHealthTest - 10;
+
+    //}
 
 
 }

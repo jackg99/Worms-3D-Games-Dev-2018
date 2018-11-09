@@ -10,6 +10,7 @@ public class WormControl : MonoBehaviour {
     float PeriodOfSlither = 1;
     PlayerControl myController;
     Team myTeam;
+    
 
     int imOnTeam;
     int teamMember;
@@ -29,6 +30,7 @@ public class WormControl : MonoBehaviour {
     {
         isActive = v;
         ourHealth.wormActive(isActive);
+        
     }
 
     bool isActive = false;
@@ -139,7 +141,7 @@ public class WormControl : MonoBehaviour {
             transform.position += walkingSpeed * direction /*+ acceleration */* Time.deltaTime;
 
             //This allows the worm to stop when the key is released
-            direction = Vector3.zero;
+            stop();
         }//End isActive
 
     }
@@ -247,8 +249,16 @@ public class WormControl : MonoBehaviour {
 ;    }
     private void jump()
     {
+
+        acceleration += Vector3.up * 10;
+
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
+    }
+
+    private void stop()
+    {
+        direction = Vector3.zero;
     }
 
     private bool shouldJump()

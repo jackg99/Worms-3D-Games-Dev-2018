@@ -13,7 +13,7 @@ public class ProjectileSpawner : MonoBehaviour {
     //PlayerControl player;
     public UnityEngine.Object grenadePrefab;
     public UnityEngine.Object MissilePrefab;
-    FloatingDisplay strengthMeterDisplay;
+    PowerDisplay Strengthmeter;
     TimeAndDisplayCountup strengthMeter;
     private float MaxGrenadeSpeed = 40;
     AimCameraControl ourAimCam;
@@ -36,6 +36,7 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.G))
             {
+
                 //Checks that the player inventory has a grenade
                 //if (player.allTeams[player.current_Team_Index].teamInventory.getGrenades() > 0)
                 //{
@@ -54,6 +55,7 @@ public class ProjectileSpawner : MonoBehaviour {
                      strengthMeter.setDuration(5.0f);
                      strengthMeter.startTimer();
                      //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
+
                 }
 
                     //Removes a grenade from the inventory
@@ -69,7 +71,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
             else
             {
-                if (strengthMeterDisplay)
+                if (Strengthmeter)
                 {
                     createGrenade();
 
@@ -145,7 +147,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
             Destroy(strengthMeter);
 
-            strengthMeterDisplay.manuallyDestroy();
+            Strengthmeter.manuallyDestroy();
         }
 
     
