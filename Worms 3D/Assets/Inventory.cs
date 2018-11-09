@@ -12,25 +12,25 @@ public class Inventory {
     private int grenades;
 
     //Mutators
-    public void setRockets(int rockets)
+    public void setRockets(int newRocketAmount)
     {
-        rockets = this.rockets;
+         this.rockets = newRocketAmount;
     }
 
-    public void setGrenades(int grenades)
+    public void setGrenades(int newGrenadeAmount)
     {
-        grenades = this.grenades;
+        this.grenades = newGrenadeAmount;
     }
 
     //Accessors
     public int getRockets()
     {
-        return this.rockets;
+        return rockets;
     }
 
     public int getGrenades()
     {
-        return this.grenades;
+        return grenades;
     }
 
     //Constructors
@@ -38,8 +38,8 @@ public class Inventory {
         //No Args
     public Inventory()
     {
-        this.grenades = 0;
-        this.rockets = 0;
+        grenades = 0;
+        rockets = 0;
     }
 
 
@@ -53,6 +53,53 @@ public class Inventory {
     //toString
     public string toString()
     {
-        return "Rockets: " + getRockets() + "\\nGrenades: " + getGrenades();
+        return "Rockets: " + getRockets() + "  ||  Grenades: " + getGrenades();
+    }
+
+    /*
+     When using the methods below, you must provide a number you wish to increase Rockets or Grenades by
+    */
+
+    internal void addRockets(int increaseValue)
+    {
+        setRockets(getRockets() + increaseValue);
+        Debug.Log("Added " + increaseValue + " Rockets");
+    }
+    internal void addGrenades(int increaseValue)
+    {
+        setGrenades(getGrenades() + increaseValue);
+        Debug.Log("Added " + increaseValue + " Grenades");
+    }
+    //Allows you to remove an amount of rockets or grenades. You can not have negative rockets or grenades.
+    internal void removeRockets(int decreaseValue)
+    {
+        if (getRockets() > 0)
+        {
+            setRockets(getRockets() - decreaseValue);
+            Debug.Log("Removed " + decreaseValue + " Rockets");
+        }
+        else
+        {
+            setRockets(0);
+            Debug.Log("No Rockets to Remove");
+        }
+    }
+    internal void removeGrenades(int decreaseValue)
+    {
+        if (getGrenades() > 0)
+        {
+            setGrenades(getGrenades() - decreaseValue);
+            Debug.Log("Removed " + decreaseValue + " Grenades");
+        }
+        else
+        {
+            setGrenades(0);
+            Debug.Log("No Grenades to Remove");
+        }
+    }
+    //Dumps the toString into the console for testing purposes
+    internal void displayInventory()
+    {
+        Debug.Log(toString());
     }
 }
