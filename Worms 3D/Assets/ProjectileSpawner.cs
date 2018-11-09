@@ -13,7 +13,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
     public UnityEngine.Object grenadePrefab;
     public UnityEngine.Object MissilePrefab;
-    FloatingDisplay strengthMeterDisplay;
+    PowerDisplay Strengthmeter;
     TimeAndDisplayCountup strengthMeter;
     private float MaxGrenadeSpeed = 40;
     AimCameraControl ourAimCam;
@@ -36,21 +36,20 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.G))
             {
-                if (strengthMeterDisplay)  // grenade strength being calculated
+                if (Strengthmeter)  // grenade strength being calculated
                 {
-                    strengthMeterDisplay.setDisplay(strengthMeter.relativePercentage().ToString());
+                    Strengthmeter.setDisplay(strengthMeter.relativePercentage().ToString());
                     
-                    //strengthMeterDisplay.transform.localPosition += 0.5f * Vector3.up;                    I tried to make the grenade strength meter go above the health but i think ill just go for hiding the health and making it re-appear
-                   // strengthMeterDisplay.transform.position += 0.5f * Vector3.up;
+                    
                     if (strengthMeter.relative() > 1.0f) createGrenade();
                 }
                 else   // STart of launch grenade
                 {
-                    strengthMeterDisplay = gameObject.AddComponent<FloatingDisplay>();
+                    Strengthmeter = gameObject.AddComponent<PowerDisplay>();
                     strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
                     strengthMeter.setDuration(5.0f);
                     strengthMeter.startTimer();
-                    //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
+                    
 
                 }
 
@@ -58,7 +57,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
             else
             {
-                if (strengthMeterDisplay)
+                if (Strengthmeter)
                 {
                     createGrenade();
 
@@ -134,7 +133,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
             Destroy(strengthMeter);
 
-            strengthMeterDisplay.manuallyDestroy();
+            Strengthmeter.manuallyDestroy();
         }
 
     

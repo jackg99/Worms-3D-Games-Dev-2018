@@ -10,6 +10,7 @@ public class WormControl : MonoBehaviour {
     float PeriodOfSlither = 1;
     PlayerControl myController;
     Team myTeam;
+    
 
     int imOnTeam;
     int teamMember;
@@ -29,6 +30,7 @@ public class WormControl : MonoBehaviour {
     {
         isActive = v;
         ourHealth.wormActive(isActive);
+        
     }
 
     bool isActive = false;
