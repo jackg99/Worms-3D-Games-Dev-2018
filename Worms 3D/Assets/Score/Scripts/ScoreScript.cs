@@ -65,18 +65,24 @@ public class ScoreScript : MonoBehaviour
 
     public void alteringScore()
     {
+        Color orange = new Color(255, 165, 0);
+
         switch (teamId)
         {
             case 0:
+                scoreText.color = Color.blue;
                 scoreText.text = "Score: \n" + team1Score.ToString();
                 break;
             case 1:
+                scoreText.color = orange;
                 scoreText.text = "Score: \n" + team2Score.ToString();
                 break;
             case 2:
+                scoreText.color = Color.green;
                 scoreText.text = "Score: \n" + team3Score.ToString();
                 break;
             case 3:
+                scoreText.color = Color.magenta;
                 scoreText.text = "Score: \n" + team4Score.ToString();
                 break;
         }
