@@ -8,14 +8,20 @@ public class ScoreScript : MonoBehaviour
 {
     //string current_display_Text = "Score: \n";
     //Variable that keeps track of the score
-    int current_Score = 15;
+    int current_Score = 0;
     //Initialize the Text object
     Text scoreText;
     //Initialize the RectTranfrom object
     RectTransform position;
-    //Will set the TextMesh to active or inactive
-    bool _isActive = false;
-
+    //Calls playerController Scritp
+    PlayerControl temp;
+    //teamId
+    int teamId;
+    //teams
+    int team1Score;
+    int team2Score;
+    int team3Score;
+    int team4Score;
 
     void Start()
     {
@@ -24,13 +30,31 @@ public class ScoreScript : MonoBehaviour
         //Creates a RectTransform object
         position = scoreText.GetComponentInChildren<RectTransform>();
         //Calls the metjod to set the position of the text for the score
-        setPosition(550, 260, 0);
+        setPosition(-51, -39, 0);
+        //PlayerController
+        temp = gameObject.AddComponent<PlayerControl>();
+        
+        
     }
 
     //This method increments the score (for testting purpose only)
     public void scoreIncrease()
     {
-        current_Score += 5;
+        switch (teamId)
+        {
+            case 0:
+                team1Score += 5;
+                break;
+            case 1:
+                team2Score += 3;
+                break;
+            case 2:
+                team3Score += 2;
+                break;
+            case 3:
+                team4Score += 6;
+                break;
+        }
     }
 
     public void setPosition(int x, int y, int z)
@@ -39,17 +63,32 @@ public class ScoreScript : MonoBehaviour
         position.Translate(distance);
     }
 
+    public void alteringScore()
+    {
+        switch (teamId)
+        {
+            case 0:
+                scoreText.text = "Score: \n" + team1Score.ToString();
+                break;
+            case 1:
+                scoreText.text = "Score: \n" + team2Score.ToString();
+                break;
+            case 2:
+                scoreText.text = "Score: \n" + team3Score.ToString();
+                break;
+            case 3:
+                scoreText.text = "Score: \n" + team4Score.ToString();
+                break;
+        }
+    }
+
 
     void Update()
     {
-        /*//Shows the score
-         
-
-        if (_isActive) scoreText.text = "Score \n" + current_Score.ToString();
-        else
-            scoreText.text = "";*/
-
-        scoreText.text = "Score: \n" + current_Score.ToString();
-
+        //teamId
+        teamId = temp.setId();
+        //Shows the score
+        //scoreText.text = "Score: \n" + current_Score.ToString();
+        alteringScore();
     }
 }

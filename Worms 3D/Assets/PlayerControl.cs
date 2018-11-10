@@ -125,4 +125,11 @@ public class PlayerControl : MonoBehaviour {
         print("Worm Removed from list");
 
     }
+
+
+    //Used to give the current_Team_Index value to the ScoreScript
+    public int setId()
+    {
+        return current_Team_Index;
+    }
 }
