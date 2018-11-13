@@ -141,6 +141,7 @@ public class PlayerControl : MonoBehaviour {
         // This code iterates though the list of teams
         current_Team_Index = (current_Team_Index + 1) % allTeams.Count;
         print("New Team index is " + current_Team_Index.ToString() +" out of " + allTeams.Count.ToString());
+      
     }
 
     internal void nextWormSelect()
@@ -161,5 +162,12 @@ public class PlayerControl : MonoBehaviour {
 
     }
 
+
+
+    //Used to give the current_Team_Index value to the ScoreScript
+    public int setId()
+    {
+        return current_Team_Index;
+    }
 
 }

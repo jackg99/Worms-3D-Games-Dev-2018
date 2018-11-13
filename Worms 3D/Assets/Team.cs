@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 class Team
     {
+
         public List<WormControl> members;
         int index_of_CurrentlyActive_Worm = -1;
         int teamId;
@@ -19,7 +21,16 @@ class Team
 
         _numberofMembers = number_of_members;
         members = new List<WormControl>();
+
+        //GameObject score = new GameObject("Score");
+        //TextMesh scoreText = score.AddComponent<TextMesh>();
+        //scoreText.text = "Score";
+        //ScoreScript scoreScript = score.AddComponent<ScoreScript>();
+        
+
+
         teamInventory = new Inventory();
+
 
         }
     internal void updateWormColours()
