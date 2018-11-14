@@ -25,28 +25,27 @@ public class Health : MonoBehaviour {
     public int maxHealth;
     FloatingDisplay ourHealthDisplay;
     private int defaultColour = 0;
+    WormControl owningWorm;
 
     internal void Iam(WormControl wormControl)
     {
+        owningWorm = wormControl;
         print("Iam");
         health = 100;
         maxHealth = 200;
         ourHealthDisplay = gameObject.AddComponent<FloatingDisplay>();
-        ourHealthDisplay.setDisplay(health.ToString() );
+       
+        
+        ourHealthDisplay.setDisplay(health.ToString());
         ourHealthDisplay.setColour(defaultColour);
-  
+
+       
     }
-
-
 
 
 
 	// Use this for initialization
 	void Awake () {
-
-  
-
-
 
         if(gameObject.tag=="Wall")
         {
@@ -60,8 +59,8 @@ public class Health : MonoBehaviour {
 	void Update () {
 
         if (Input.GetKeyDown(KeyCode.Space)) adjustHealth(-5);
-		
-	}
+       
+    }
 
     public int getHealth()
     {
@@ -91,8 +90,7 @@ public class Health : MonoBehaviour {
     void death()
     {
         Debug.Log("You dead");
-
-        Destroy(gameObject);
+        owningWorm.yourDead();
     }
 
     internal void printHello()
@@ -112,6 +110,11 @@ public class Health : MonoBehaviour {
      
     }
 
+
+    /*internal  void  EnableHealthDisplay(bool yesorno)
+    {
+        ourHealthDisplay.gameObject.SetActive(yesorno);
+    }*/
     internal void upDateColorTo(int teamId)
     {
         defaultColour = teamId+1;

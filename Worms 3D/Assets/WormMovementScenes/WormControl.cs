@@ -8,6 +8,12 @@ public class WormControl : MonoBehaviour {
     Vector3 direction, velocity, acceleration;
     float AmplitudeForWormSlither = 0.1f;
     float PeriodOfSlither = 1;
+    PlayerControl myController;
+    Team myTeam;
+    
+
+    int imOnTeam;
+    int teamMember;
 
 
 
@@ -24,6 +30,7 @@ public class WormControl : MonoBehaviour {
     {
         isActive = v;
         ourHealth.wormActive(isActive);
+        
     }
 
     bool isActive = false;
@@ -40,9 +47,11 @@ public class WormControl : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
+       // gameObject.SetActive(false);
         ourHealth = gameObject.AddComponent<Health>();
         ourHealth.Iam(this);
-        
+        myController = FindObjectOfType<PlayerControl>();
+
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
 
@@ -128,19 +137,44 @@ public class WormControl : MonoBehaviour {
                 jump();
             }
 
-
             //The movement equation, updates position of the worm on key press
             transform.position += walkingSpeed * direction /*+ acceleration */* Time.deltaTime;
 
             //This allows the worm to stop when the key is released
-            direction = Vector3.zero;
+            stop();
         }//End isActive
 
     }
 
+    internal void introduction(PlayerControl playerControl)
+    {
+        myController = playerControl;
+    }
+
+    internal void yourDead()
+    {
+        myController.wormDead(this);
+
+        Destroy(gameObject);
+
+    }
+
+
     internal void YoureOnTeam(int j)
     {
       ourHealth.ImOnTeam(j);
+        imOnTeam = j;
+    }
+
+    public int whatisMyTeam()
+    {
+        return imOnTeam;
+    }
+
+    public int whatMemberOfTeam()
+    {
+        teamMember = myTeam.memberId;
+        return teamMember;
     }
 
     private bool shouldStrafeRight()
@@ -215,8 +249,16 @@ public class WormControl : MonoBehaviour {
 ;    }
     private void jump()
     {
+
+        acceleration += Vector3.up * 10;
+
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
+    }
+
+    private void stop()
+    {
+        direction = Vector3.zero;
     }
 
     private bool shouldJump()

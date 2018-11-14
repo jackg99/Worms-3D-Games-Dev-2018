@@ -18,9 +18,11 @@ public class PlayerControl : MonoBehaviour {
     int numberOfTeams = 4;
 
     int current_Worm_Index = -1;
-    int current_Team_Index = -1;
+    internal int current_Team_Index = -1;
     List<WormControl> allWorms;
-    List<Team> allTeams;
+    internal List<Team> allTeams;
+    WormControl currentActiveWorm;
+
 
 
     public Object WormPrefab;
@@ -36,7 +38,7 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-        numTeams = 6;
+        numTeams = 4;
         numWormsPerTeam = 4;
         allTeams = new List<Team>();
 
@@ -55,41 +57,63 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-      
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            nextTeamSelect();
+            nextWormSelect();
+
+        }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (someWormActive)
-            {
-                allWorms[current_Worm_Index].setActive(false);
-            }
-            
-            someWormActive = true;
-
-            current_Worm_Index = (current_Worm_Index + 1) % allWorms.Count;
-            allWorms[current_Worm_Index].setActive(true); 
+            nextWormSelect();
         }
 
-        //if (Input.GetKeyDown(KeyCode.Tab))
-        //{
-        //    if (someWormActive)
-        //    {
-        //        team1[current_Worm_Index].setActive(false);
-        //    }
+        //temporary code that allows user to add/remove rockets and grenades and to show inventory
 
-        //    someWormActive = true;
+        //-add 1 rocket with l
+        if (Input.GetKeyDown("l"))
+        {
+            allTeams[current_Team_Index].teamInventory.addRockets(1);
+        }
 
-        //    current_Worm_Index = (current_Worm_Index + 1) % team1.Count;
-        //    team1[current_Worm_Index].setActive(true);
-        //}
+        //-remove 1 rocket with k
+        if (Input.GetKeyDown("k"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeRockets(1);
+        }
+
+        //-add 1 grenade with p
+        if (Input.GetKeyDown("p"))
+        {
+            allTeams[current_Team_Index].teamInventory.addGrenades(1);
+        }
+
+        //-remove 1 grenade with o
+        if (Input.GetKeyDown("o"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeGrenades(1);
+        }
+
+        //-display the inventory with i
+        if (Input.GetKey("i"))
+        {
+            Debug.Log(allTeams[current_Team_Index].teamInventory.toString());
+        }
+
+        //End rocket/grenade code
+
+
+
     }
 
     void spawnWorms()
     {
         for (int teamId = 0; teamId < numberOfTeams; teamId++)
-            for(int playerId = 0; playerId < numWormsPerTeam; playerId++)
+            for(int wormId = 0; wormId < numWormsPerTeam; wormId++)
             {
             
-                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(4*teamId,0.2f,4*playerId), Quaternion.identity);
+                GameObject temp = (GameObject) Instantiate(WormPrefab,new Vector3(4*teamId,0.2f,4*wormId), Quaternion.identity);
                 WormControl ourNewWorm = temp.GetComponent<WormControl>();
                 allWorms.Add(ourNewWorm);
                 allTeams[teamId].AddMember(ourNewWorm);
@@ -116,16 +140,34 @@ public class PlayerControl : MonoBehaviour {
 
         // This code iterates though the list of teams
         current_Team_Index = (current_Team_Index + 1) % allTeams.Count;
-        
+        print("New Team index is " + current_Team_Index.ToString() +" out of " + allTeams.Count.ToString());
+      
     }
 
     internal void nextWormSelect()
     {
+        if (currentActiveWorm)
+        {
+            currentActiveWorm.setActive(false);
+        }
 
-        // This code is attempting to iterate through the worms on a team, while keeping track of which 
-        // worm is currently selected on the team.
-        allTeams[current_Team_Index].incWorm(); // <----
-            current_Worm_Index = (current_Worm_Index + 1) % allTeams.Count;
-        allWorms[current_Worm_Index].setActive(true);
+        currentActiveWorm = allTeams[current_Team_Index].incWorm(); // <----
+
     }
+     public void wormDead(WormControl worm)
+    {
+
+        allTeams[worm.whatisMyTeam()].members.Remove(worm);
+        print("Worm Removed from list");
+
+    }
+
+
+
+    //Used to give the current_Team_Index value to the ScoreScript
+    public int setId()
+    {
+        return current_Team_Index;
+    }
+
 }

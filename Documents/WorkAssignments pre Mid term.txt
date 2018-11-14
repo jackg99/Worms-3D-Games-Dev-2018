@@ -1,6 +1,6 @@
 1	Explosions	Create gameobject with explosion controller script (allow AOE radius colour, etc to be changed), use a particle system effect, call by instantiating in obvious places
 2.	Score		Create a score game object which has "Floating text" and script which allows positioning and colour change etc. updating etc..
-3.	Menu		Create a basic Menu system, Using F"loating Text" to display basic startup options and starts game, returns to menu etc...
+3.	Menu		Create a basic Menu system, Using Floating Text" to display basic startup options and starts game, returns to menu etc...
 4.	Inventory	A basic script to keep track of the inventory of each team
 5.	Camera Control	A script to move the camera
 6.	Game Manager	Create a gameobject with a Game Manager script, Creates the overall area with surrounding Wall
