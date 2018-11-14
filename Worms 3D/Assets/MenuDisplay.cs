@@ -11,21 +11,19 @@ public class MenuDisplay : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //myLoadedAssetBundle = AssetBundle.LoadFromFile("PlayerControllerTest.unity");
-        //scenePaths = myLoadedAssetBundle.GetAllScenePaths();
-
         start = new GameObject();
-        FloatingDisplay startDisp = start.AddComponent <FloatingDisplay>();
+        MenuFloatingDisplay startDisp = start.AddComponent <MenuFloatingDisplay>();
         startDisp.setDisplay("Start Game");
-        Collider startCol =  start.gameObject.AddComponent<BoxCollider>();
+        BoxCollider startCol =  start.gameObject.AddComponent<BoxCollider>();
+        startCol.size = new Vector3(4, 1, 1);
 
         exit = new GameObject();
-        exit.transform.position = 2 * -Vector3.up;
-        FloatingDisplay exitDisp = exit.AddComponent<FloatingDisplay>();
+        MenuFloatingDisplay exitDisp = exit.AddComponent<MenuFloatingDisplay>();
         exitDisp.setDisplay("Exit Game");
-        Collider exitCol = exit.gameObject.AddComponent<BoxCollider>();
+        BoxCollider exitCol = exit.gameObject.AddComponent<BoxCollider>();
+        exit.transform.position = 2f * -Vector3.up;
+        exitCol.size = new Vector3(4, 1, 1);
 
-        
     }
 	
 	// Update is called once per frame
@@ -35,7 +33,7 @@ public class MenuDisplay : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit))
         {
-            FloatingDisplay fd = hit.collider.gameObject.GetComponent<FloatingDisplay>();
+            MenuFloatingDisplay fd = hit.collider.gameObject.GetComponent<MenuFloatingDisplay>();
             if (fd)
             {
                 fd.setColour(2);
