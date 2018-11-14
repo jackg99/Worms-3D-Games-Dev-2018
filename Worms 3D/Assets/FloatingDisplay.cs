@@ -11,6 +11,7 @@ public class FloatingDisplay : MonoBehaviour {
     // Use this for initialization
     public GameObject floatingDisplay;
     public GameObject Strengthmeter;
+    PowerDisplay GrenadeDisplayTest;
     TextMesh ourText;
     TextMesh grenadeText;
      Health  myHealth;
