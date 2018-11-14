@@ -19,9 +19,10 @@ public class ProjectileSpawner : MonoBehaviour {
     AimCameraControl ourAimCam;
     GameObject crosshairs;
     WormControl ourOwner;
+    FloatingDisplay strengthMeterDisplay;
 
-    
-    
+
+
 
     // Use this for initialization
     void Start () {
