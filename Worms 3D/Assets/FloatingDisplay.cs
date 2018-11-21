@@ -10,7 +10,7 @@ public class FloatingDisplay : MonoBehaviour {
     //string healthValue
     // Use this for initialization
     public GameObject floatingDisplay;
-    public GameObject Strengthmeter;
+
     TextMesh ourText;
     TextMesh grenadeText;
      Health  myHealth;
@@ -92,7 +92,7 @@ public class FloatingDisplay : MonoBehaviour {
        
             setDisplay(displayString);
 
-        Strengthmeter.transform.rotation = Quaternion.LookRotation((-Camera.main.transform.position + floatingDisplay.transform.position).normalized);//Camera.main.transform.rotation;
+
 
         floatingDisplay.transform.rotation = Quaternion.LookRotation((-Camera.main.transform.position+floatingDisplay.transform.position).normalized);//Camera.main.transform.rotation;
 	}
@@ -100,7 +100,7 @@ public class FloatingDisplay : MonoBehaviour {
     internal void manuallyDestroy()
     {
         Destroy(floatingDisplay);
-        Destroy(Strengthmeter);
+  
         Destroy(this);
     }
 
