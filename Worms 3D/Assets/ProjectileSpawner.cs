@@ -43,6 +43,7 @@ public class ProjectileSpawner : MonoBehaviour {
                 //if (player.allTeams[player.current_Team_Index].teamInventory.getGrenades() > 0)
                 //{
 
+
                if (strengthMeterDisplay)  // grenade strength being calculated
                 {
                      strengthMeterDisplay.setDisplay(strengthMeter.relativePercentage().ToString());
