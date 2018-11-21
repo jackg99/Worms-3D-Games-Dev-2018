@@ -19,8 +19,8 @@ public class ProjectileSpawner : MonoBehaviour {
     AimCameraControl ourAimCam;
     GameObject crosshairs;
     WormControl ourOwner;
-    FloatingDisplay strengthMeterDisplay;
 
+    FloatingDisplay strengthMeterDisplay;
 
 
     // Use this for initialization
