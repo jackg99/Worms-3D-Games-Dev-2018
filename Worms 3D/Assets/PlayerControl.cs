@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour {
     List<WormControl> allWorms;
     internal List<Team> allTeams;
     WormControl currentActiveWorm;
-
+    mainCameraScript ourCamera;
 
 
     public Object WormPrefab;
@@ -35,7 +35,7 @@ public class PlayerControl : MonoBehaviour {
     void Start () {
         allWorms = new List<WormControl>();
 
-
+        ourCamera = FindObjectOfType<mainCameraScript>();
 
 
         numTeams = 4;
@@ -152,6 +152,7 @@ public class PlayerControl : MonoBehaviour {
         }
 
         currentActiveWorm = allTeams[current_Team_Index].incWorm(); // <----
+        ourCamera.newWormIs(currentActiveWorm);
 
     }
      public void wormDead(WormControl worm)
