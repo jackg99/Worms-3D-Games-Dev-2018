@@ -41,23 +41,25 @@ public class ProjectileSpawner : MonoBehaviour {
                 //Checks that the player inventory has a grenade
                 //if (player.allTeams[player.current_Team_Index].teamInventory.getGrenades() > 0)
                 //{
+
                if (strengthMeterDisplay)  // grenade strength being calculated
                 {
                      strengthMeterDisplay.setDisplay(strengthMeter.relativePercentage().ToString());
-                
-                     //strengthMeterDisplay.transform.localPosition += 0.5f * Vector3.up;                    I tried to make the grenade strength meter go above the health but i think ill just go for hiding the health and making it re-appear
-                     // strengthMeterDisplay.transform.position += 0.5f * Vector3.up;
-                     if (strengthMeter.relative() > 1.0f) createGrenade();
-                }
-                else   // STart of launch grenade
-                {
-                     strengthMeterDisplay = gameObject.AddComponent<FloatingDisplay>();
-                     strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
-                     strengthMeter.setDuration(5.0f);
-                     strengthMeter.startTimer();
-                     //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
 
-                }
+                
+                //     //strengthMeterDisplay.transform.localPosition += 0.5f * Vector3.up;                    I tried to make the grenade strength meter go above the health but i think ill just go for hiding the health and making it re-appear
+                //     // strengthMeterDisplay.transform.position += 0.5f * Vector3.up;
+                //     if (strengthMeter.relative() > 1.0f) createGrenade();
+                //}
+                //else   // STart of launch grenade
+                //{
+                //     strengthMeterDisplay = gameObject.AddComponent<FloatingDisplay>();
+                //     strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
+                //     strengthMeter.setDuration(5.0f);
+                //     strengthMeter.startTimer();
+                //     //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
+
+                //}
 
                     //Removes a grenade from the inventory
                     //player.allTeams[player.current_Team_Index].teamInventory.removeGrenades(1);
