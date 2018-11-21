@@ -13,7 +13,7 @@ public class ProjectileSpawner : MonoBehaviour {
     //PlayerControl player;
     public UnityEngine.Object grenadePrefab;
     public UnityEngine.Object MissilePrefab;
-   // PowerDisplay Strengthmeter;
+
     TimeAndDisplayCountup strengthMeter;
     PowerDisplay GrenadeDisplayTest;
     private float MaxGrenadeSpeed = 40;
@@ -21,8 +21,10 @@ public class ProjectileSpawner : MonoBehaviour {
     GameObject crosshairs;
     WormControl ourOwner;
 
-    
-    
+
+    public FloatingDisplay strengthMeterDisplay;
+
+
 
     // Use this for initialization
     void Start () {
@@ -41,6 +43,7 @@ public class ProjectileSpawner : MonoBehaviour {
                 //Checks that the player inventory has a grenade
                 //if (player.allTeams[player.current_Team_Index].teamInventory.getGrenades() > 0)
                 //{
+
                 if (GrenadeDisplayTest)  // grenade strength being calculated
                 {
                      GrenadeDisplayTest.setDisplay(((int) (strengthMeter.relativePercentage() ) ).ToString());
@@ -57,7 +60,8 @@ public class ProjectileSpawner : MonoBehaviour {
                      strengthMeter.startTimer();
                      //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
 
-                }
+
+                //}
 
                     //Removes a grenade from the inventory
                     //player.allTeams[player.current_Team_Index].teamInventory.removeGrenades(1);
@@ -72,7 +76,9 @@ public class ProjectileSpawner : MonoBehaviour {
 
             else   
             {
+
                 if (strengthMeter)
+
                 {
                     createGrenade();
 
@@ -149,6 +155,8 @@ public class ProjectileSpawner : MonoBehaviour {
             Destroy(strengthMeter);
 
             GrenadeDisplayTest.manuallyDestroy();
+
+
         }
 
     

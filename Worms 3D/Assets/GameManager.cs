@@ -44,8 +44,20 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
+    void createWall(Vector3 position, float height, float width, float depth, Vector3 lookAt)
+
+    {
+        GameObject ourWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        ourWall.transform.position = position;
+        ourWall.transform.localScale = new Vector3(width, height, depth);
+        ourWall.transform.LookAt(lookAt);
+        ourWall.AddComponent<Health>();
+
+    }
     public void spawnWalls()
     {
+        createWall(new Vector3(10, 0, 20), 3, 10, 1, new Vector3(0, 0, 0));
+
         Instantiate(surroundingWallPrefab, new Vector3(0, 50, zMinBounds), Quaternion.identity);
         Instantiate(surroundingWallPrefab, new Vector3(0, 50, zMaxBounds), Quaternion.identity);
         Instantiate(surroundingWallPrefab, new Vector3(xMinBounds, 50, 0), Quaternion.Euler(0, 90, 0));
