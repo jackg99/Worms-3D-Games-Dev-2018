@@ -5,37 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class MenuDisplay : MonoBehaviour {
 
-    FloatingDisplay start;
-    FloatingDisplay exit;
-    private AssetBundle myLoadedAssetBundle;
-    private string[] scenePaths;
+    GameObject start;
+    GameObject exit;
+
 
     // Use this for initialization
     void Start () {
-        //myLoadedAssetBundle = AssetBundle.LoadFromFile("PlayerControllerTest.unity");
-        //scenePaths = myLoadedAssetBundle.GetAllScenePaths();
+        start = new GameObject();
+        MenuFloatingDisplay startDisp = start.AddComponent <MenuFloatingDisplay>();
+        startDisp.setDisplay("Start Game");
+        BoxCollider startCol =  start.gameObject.AddComponent<BoxCollider>();
+        startCol.size = new Vector3(4, 1, 1);
 
-        start = gameObject.AddComponent <FloatingDisplay>();
-        start.setDisplay("Start Game");
-        start.transform.localPosition = Vector3.up;
+        exit = new GameObject();
+        MenuFloatingDisplay exitDisp = exit.AddComponent<MenuFloatingDisplay>();
+        exitDisp.setDisplay("Exit Game");
+        BoxCollider exitCol = exit.gameObject.AddComponent<BoxCollider>();
+        exit.transform.position = 2f * -Vector3.up;
+        exitCol.size = new Vector3(4, 1, 1);
 
-        exit = gameObject.AddComponent<FloatingDisplay>();
-        exit.setDisplay("Exit game");
-        exit.transform.localPosition = -Vector3.up;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("n"))
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            start.setColour(2);
-            //SceneManager.LoadScene(scenePaths[0], LoadSceneMode.Single);
+            MenuFloatingDisplay fd = hit.collider.gameObject.GetComponent<MenuFloatingDisplay>();
+            if (fd)
+            {
+                fd.setColour(2);
+            }
         }
 
-        if(Input.GetKeyDown("x"))
+            Debug.DrawRay(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).direction * 100);
+        if (Input.GetMouseButtonDown(0))
         {
-            exit.setColour(4);
-            Application.Quit();
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.gameObject == start)
+                    SceneManager.LoadScene("PlayerControllerTest", LoadSceneMode.Single);
+                else if (hit.transform.gameObject == exit)
+                    print("Quitting");//Application.Quit();
+            }
         }
 	}
 }

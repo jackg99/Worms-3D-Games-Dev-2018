@@ -18,10 +18,11 @@ public class PlayerControl : MonoBehaviour {
     int numberOfTeams = 4;
 
     int current_Worm_Index = -1;
-    int current_Team_Index = 0;
+    internal int current_Team_Index = -1;
     List<WormControl> allWorms;
-    List<Team> allTeams;
+    internal List<Team> allTeams;
     WormControl currentActiveWorm;
+    mainCameraScript ourCamera;
 
 
     public Object WormPrefab;
@@ -34,7 +35,7 @@ public class PlayerControl : MonoBehaviour {
     void Start () {
         allWorms = new List<WormControl>();
 
-
+        ourCamera = FindObjectOfType<mainCameraScript>();
 
 
         numTeams = 4;
@@ -67,6 +68,41 @@ public class PlayerControl : MonoBehaviour {
         {
             nextWormSelect();
         }
+
+        //temporary code that allows user to add/remove rockets and grenades and to show inventory
+
+        //-add 1 rocket with l
+        if (Input.GetKeyDown("l"))
+        {
+            allTeams[current_Team_Index].teamInventory.addRockets(1);
+        }
+
+        //-remove 1 rocket with k
+        if (Input.GetKeyDown("k"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeRockets(1);
+        }
+
+        //-add 1 grenade with p
+        if (Input.GetKeyDown("p"))
+        {
+            allTeams[current_Team_Index].teamInventory.addGrenades(1);
+        }
+
+        //-remove 1 grenade with o
+        if (Input.GetKeyDown("o"))
+        {
+            allTeams[current_Team_Index].teamInventory.removeGrenades(1);
+        }
+
+        //-display the inventory with i
+        if (Input.GetKey("i"))
+        {
+            Debug.Log(allTeams[current_Team_Index].teamInventory.toString());
+        }
+
+        //End rocket/grenade code
+
 
 
     }
@@ -105,6 +141,7 @@ public class PlayerControl : MonoBehaviour {
         // This code iterates though the list of teams
         current_Team_Index = (current_Team_Index + 1) % allTeams.Count;
         print("New Team index is " + current_Team_Index.ToString() +" out of " + allTeams.Count.ToString());
+      
     }
 
     internal void nextWormSelect()
@@ -115,6 +152,23 @@ public class PlayerControl : MonoBehaviour {
         }
 
         currentActiveWorm = allTeams[current_Team_Index].incWorm(); // <----
+        ourCamera.newWormIs(currentActiveWorm);
 
     }
+     public void wormDead(WormControl worm)
+    {
+
+        allTeams[worm.whatisMyTeam()].members.Remove(worm);
+        print("Worm Removed from list");
+
+    }
+
+
+
+    //Used to give the current_Team_Index value to the ScoreScript
+    public int setId()
+    {
+        return current_Team_Index;
+    }
+
 }
