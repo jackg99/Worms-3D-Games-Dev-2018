@@ -30,7 +30,7 @@ public class ScoreScript : MonoBehaviour
         //Creates a RectTransform object
         position = scoreText.GetComponentInChildren<RectTransform>();
         //Calls the metjod to set the position of the text for the score
-        setPosition(-51, -39, 0);
+        setPosition(-14, -39, 0);
         //PlayerController
         temp = gameObject.AddComponent<PlayerControl>();
         
