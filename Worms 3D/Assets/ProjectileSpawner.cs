@@ -104,7 +104,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
                         newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, ourAimCam.transform.position, (ourAimCam.target -  ourAimCam.transform.position).normalized, 15.0f, ourOwner);
                         DestroyAimCam();
-                        ourOwner.setActive(false);
+                     //   ourOwner.setActive(false);
                     }
                 }
 
