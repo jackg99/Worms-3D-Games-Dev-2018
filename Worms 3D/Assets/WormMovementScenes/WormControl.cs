@@ -10,7 +10,7 @@ public class WormControl : MonoBehaviour {
     float PeriodOfSlither = 1;
     PlayerControl myController;
     Team myTeam;
-    
+    ProjectileSpawner Shoot;
 
     int imOnTeam;
     int teamMember;
@@ -63,11 +63,20 @@ public class WormControl : MonoBehaviour {
 
         movementMode = Movement.slither;
 
-
+        Shoot = GetComponent<ProjectileSpawner>();
         /* relocated from health script
          FloatingDisplay ourHealthDisplay;
          */
 
+    }
+
+    //Creates a link between teamInventory and ProjectileSpawner
+    internal void hereIsTeamInventory(Inventory teamInventory)
+    {
+        //Shoot, referenced above, is an instance of ProjectileSpawner
+        //InventoryLink() is a method of ProjectileSpawner.cs
+        //The Parameter teamInventory was provided in Team.cs
+        Shoot.InventoryLink(teamInventory);
     }
 
     internal bool isWormActive()

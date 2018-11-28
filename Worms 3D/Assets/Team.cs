@@ -45,6 +45,11 @@ class Team
     {
 
         members.Add(ourNewWorm);
+
+        //OurNewWorm is the newly created worm by members.Add();
+        //hereIsTeamInventory() is a method of WormControl.cs
+        //the parameter teamInventory is an instance of Inventory.cs
+        ourNewWorm.hereIsTeamInventory(teamInventory);
     }
 
     internal WormControl  incWorm()
