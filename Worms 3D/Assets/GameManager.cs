@@ -1,4 +1,4 @@
-﻿using System;
+﻿     using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public GameObject surroundingWallPrefab;
     public GameObject platformPrefab;
     public int xMaxBounds, xMinBounds, zMaxBounds, zMinBounds;
+
 
     // Use this for initialization
     void Start () {
@@ -34,8 +35,9 @@ public class GameManager : MonoBehaviour {
     {
         print("Game Start");
         Instantiate(groundPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        spawnWalls();
-        Instantiate(platformPrefab, new Vector3(0, 25, 225), Quaternion.Euler(90,0,0));
+        spawnSurroundingWalls();
+        generateFortress();
+        //Instantiate(platformPrefab, new Vector3(0, 25, 225), Quaternion.Euler(90,0,0));
 
     }
 
@@ -48,19 +50,31 @@ public class GameManager : MonoBehaviour {
 
     {
         GameObject ourWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        ourWall.transform.position = position;
+        ourWall.transform.position = position + (height/2) * Vector3.up;
         ourWall.transform.localScale = new Vector3(width, height, depth);
         ourWall.transform.LookAt(lookAt);
         ourWall.AddComponent<Health>();
 
     }
-    public void spawnWalls()
+    public void spawnSurroundingWalls() // creates surrounding walls
     {
-        createWall(new Vector3(10, 0, 20), 3, 10, 1, new Vector3(0, 0, 0));
+        createWall(new Vector3(0, 0, 250), 50, 500, 1, new Vector3(0, 25, 0));
+        createWall(new Vector3(0, 0, -250), 50, 500, 1, new Vector3(0, 25, 0));
+        createWall(new Vector3(250, 0, 0), 50, 500, 1, new Vector3(0, 25, 0));
+        createWall(new Vector3(-250, 0, 0), 50, 500, 1, new Vector3(0, 25, 0));
 
-        Instantiate(surroundingWallPrefab, new Vector3(0, 50, zMinBounds), Quaternion.identity);
-        Instantiate(surroundingWallPrefab, new Vector3(0, 50, zMaxBounds), Quaternion.identity);
-        Instantiate(surroundingWallPrefab, new Vector3(xMinBounds, 50, 0), Quaternion.Euler(0, 90, 0));
-        Instantiate(surroundingWallPrefab, new Vector3(xMaxBounds, 50, 0), Quaternion.Euler(0, 90, 0));
+
+
     }
+
+    public void generateFortress()
+    {
+
+        createWall(new Vector3(50, 0, 0), 30, 100, 1, new Vector3(0, 15, 0));
+        createWall(new Vector3(0, 0, 50), 30, 100, 1, new Vector3(0, 15, 0));
+        createWall(new Vector3(0, 0, -50), 30, 100, 1, new Vector3(0, 15, 0));
+        createWall(new Vector3(-50, 0, 0), 30, 95, 1, new Vector3(0, 15, 0));
+    }
+
+    
 }
