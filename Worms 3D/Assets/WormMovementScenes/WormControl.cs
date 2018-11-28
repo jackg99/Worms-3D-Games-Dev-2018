@@ -21,7 +21,7 @@ public class WormControl : MonoBehaviour {
 
 
     //Define walking speed variable and turning speed variable
-    float walkingSpeed = 2,turningSpeed = 45, jumpForce = 7;
+    float walkingSpeed = 2,turningSpeed = 45, jumpForce = 10;
     private float timeForSlither;
 
     internal void updateTeamColour(int teamId)
@@ -57,7 +57,7 @@ public class WormControl : MonoBehaviour {
 
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
-        wormGravity = new Vector3(0, -9, 0);
+        wormGravity = new Vector3(0, -9.8f, 0);
 
         Movement movementMode;
 
@@ -87,17 +87,13 @@ public class WormControl : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        //
-        Vector3 dwn = transform.TransformDirection(Vector3.down);
-        Debug.DrawRay(transform.position, dwn*0.90f, Color.white, 1);
+        
 
-        if (Physics.Raycast(transform.position, dwn * 0.90f, 1))
-            print("There is something betneath the object!");
-
-        //shouldGoForward() method defines the key press (w)
+        
         if (isActive)
         {
-            
+
+            //shouldGoForward() method defines the key press (w)
             if (shouldGoForward())
             {
                 //Applies actual movement equation forward
@@ -142,8 +138,29 @@ public class WormControl : MonoBehaviour {
             }
 
             //The movement equation, updates position of the worm on key press
-            transform.position += walkingSpeed * direction /*+ acceleration */* Time.deltaTime;
+            transform.position += walkingSpeed * direction * Time.deltaTime;
 
+            //Decision taken not to disable lateral movement during jump for the retro feel. - Ian
+            if (isAirbourne)
+            {
+                velocity += wormGravity * Time.deltaTime;
+                transform.position += velocity * Time.deltaTime;
+
+                Vector3 dwn = transform.TransformDirection(Vector3.down);
+                Debug.DrawRay(transform.position, dwn * 0.70f, Color.white, 1);
+
+                if (Physics.Raycast(transform.position, dwn * 0.70f, 1))
+                    touchingGround = true;
+                else
+                    touchingGround = false;
+                    
+            }
+            if (touchingGround && isAirbourne)
+            {
+                velocity = Vector3.zero;
+                isAirbourne = false;
+                
+            }
             //This allows the worm to stop when the key is released
             stop();
         }//End isActive
@@ -239,7 +256,7 @@ public class WormControl : MonoBehaviour {
 
 
         //The movement equation, updates position of the worm on key press
-        transform.position += walkingSpeed * direction + acceleration * Time.deltaTime;
+        transform.position += walkingSpeed * direction * Time.deltaTime;
 
         //This allows the worm to stop when the key is released
         direction = Vector3.zero;
@@ -266,17 +283,9 @@ public class WormControl : MonoBehaviour {
         {
             //Up ward code stuff
             isAirbourne = true;
-        }
-        if (canJump() && touchingGround)
-        {
-            stop();
-            isAirbourne = false;
-        }
-
-        acceleration += Vector3.up * 10;
-
-        velocity += acceleration * Time.deltaTime;
-        transform.position += velocity * Time.deltaTime;
+            velocity += Vector3.up * jumpForce;
+        }  
+        
     }
 
     private void stop()
