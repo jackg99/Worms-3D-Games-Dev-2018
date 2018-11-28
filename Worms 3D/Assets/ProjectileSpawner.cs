@@ -10,10 +10,9 @@ using UnityEngine;
  It passes in the arguments for the projectile type, position, direction, speed for the game object*/
 
 public class ProjectileSpawner : MonoBehaviour {
-    //PlayerControl player;
     public UnityEngine.Object grenadePrefab;
     public UnityEngine.Object MissilePrefab;
-
+    Inventory myTeamInventory;
     TimeAndDisplayCountup strengthMeter;
     PowerDisplay GrenadeDisplayTest;
     private float MaxGrenadeSpeed = 40;
@@ -37,13 +36,11 @@ public class ProjectileSpawner : MonoBehaviour {
     void Update() {
         if (ourOwner.isWormActive())
         {
-            if (Input.GetKey(KeyCode.G))
+            //Checks if G is pressed and that the team's inventory has a grenade
+            if (Input.GetKey(KeyCode.G)  && (myTeamInventory.getGrenades() > 0))
             {
 
-                //Checks that the player inventory has a grenade
-                //if (player.allTeams[player.current_Team_Index].teamInventory.getGrenades() > 0)
-                //{
-
+                
                 if (GrenadeDisplayTest)  // grenade strength being calculated
                 {
                     GrenadeDisplayTest.setDisplay(((int)(strengthMeter.relativePercentage())).ToString());
@@ -61,17 +58,12 @@ public class ProjectileSpawner : MonoBehaviour {
                     //strengthMeterDisplay.transform.localPosition = 2.5f * Vector3.up;
                 }
 
-                //}
 
-                    //Removes a grenade from the inventory
-                    //player.allTeams[player.current_Team_Index].teamInventory.removeGrenades(1);
+            }
 
-                //}
-                //else
-                //{
-                    //Debug.Log("No Grenades in Inventory (P to add)");
-                //}
-
+            else if(myTeamInventory.getGrenades() == 0)
+            {
+                Debug.Log("No Grenades in Inventory (P to add)");
             }
 
             else   
@@ -121,7 +113,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
 
                      
-                        }
+                 }
                     
 
             }
@@ -138,6 +130,11 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         }
 
+    internal void InventoryLink(Inventory teamInventory)
+    {
+        myTeamInventory = teamInventory;
+    }
+
     private void DestroyAimCam()
     {
         Destroy(crosshairs);
@@ -146,6 +143,10 @@ public class ProjectileSpawner : MonoBehaviour {
 
     private void createGrenade()
         {
+            //Removes a grenade from the inventory when a grenade is launched
+            myTeamInventory.removeGrenades(1);
+            //
+
             GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
             ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
