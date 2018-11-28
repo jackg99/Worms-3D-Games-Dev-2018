@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WormControl : MonoBehaviour {
     //Define the direction the worm is facing and the falling speed (gravity)
-    Vector3 direction, velocity, acceleration;
+    Vector3 direction, velocity, acceleration, wormGravity;
     float AmplitudeForWormSlither = 0.1f;
     float PeriodOfSlither = 1;
     PlayerControl myController;
@@ -14,6 +14,9 @@ public class WormControl : MonoBehaviour {
 
     int imOnTeam;
     int teamMember;
+
+    Boolean isAirbourne = false;
+    Boolean touchingGround = true;
 
 
 
@@ -54,6 +57,7 @@ public class WormControl : MonoBehaviour {
 
         velocity = new Vector3(0, 7, 0);
         acceleration = new Vector3(0, -9, 0);
+        wormGravity = new Vector3(0, -9, 0);
 
         Movement movementMode;
 
@@ -74,25 +78,16 @@ public class WormControl : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        //Insert Switch Case for deciding movement mode of the Controlled Worm
+        //
+        Vector3 dwn = transform.TransformDirection(Vector3.down);
+        Debug.DrawRay(transform.position, dwn*0.90f, Color.white, 1);
 
+        if (Physics.Raycast(transform.position, dwn * 0.90f, 1))
+            print("There is something betneath the object!");
 
-        /*
-        switch(somethingCool)
-        {
-            case 1: jumpCode();
-                break;
-            case 2: notJumpCode();
-                break;
-            default: wormMovement();
-                    break;
-        }
-        */
         //shouldGoForward() method defines the key press (w)
         if (isActive)
         {
-
-    
             
             if (shouldGoForward())
             {
@@ -247,8 +242,27 @@ public class WormControl : MonoBehaviour {
         foreach (Transform child in transform)
             child.localScale = new Vector3(  1 + AmplitudeForWormSlither * Mathf.Sin(((2 * Mathf.PI) * timeForSlither) / PeriodOfSlither)  , 1, 1);
 ;    }
+
+    private Boolean canJump()
+    {
+        if (isAirbourne)
+            return false;
+
+        return true;
+    }
     private void jump()
     {
+
+        if (canJump())
+        {
+            //Up ward code stuff
+            isAirbourne = true;
+        }
+        if (canJump() && touchingGround)
+        {
+            stop();
+            isAirbourne = false;
+        }
 
         acceleration += Vector3.up * 10;
 

@@ -48,7 +48,7 @@ public class MenuDisplay : MonoBehaviour {
                 if (hit.transform.gameObject == start)
                     SceneManager.LoadScene("PlayerControllerTest", LoadSceneMode.Single);
                 else if (hit.transform.gameObject == exit)
-                    print("Quitting");//Application.Quit();
+                    Application.Quit();
             }
         }
 	}
