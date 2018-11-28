@@ -216,20 +216,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 696313980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75744ab30f58e9746886fae24c8028f3, type: 3}
+  m_Script: {fileID: 11500000, guid: b50f53cb7705ac54c92ee3cbb8b43783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 1713295148923438, guid: 7489853a2a737a94d8bc4b7953ea584d,
     type: 2}
-  surroundingWallPrefab: {fileID: 1377077512786652, guid: 8eea7405dcf1f1f4f8973a4aae6fa232,
+  surroundingWallPrefab: {fileID: 1679693552481798, guid: 613babe449e9e5a459465b3489faf6bf,
     type: 2}
-  platformPrefab: {fileID: 1679693552481798, guid: 613babe449e9e5a459465b3489faf6bf,
+  platformPrefab: {fileID: 1377077512786652, guid: 8eea7405dcf1f1f4f8973a4aae6fa232,
     type: 2}
-  wormPrefab: {fileID: 1183158107698602, guid: 279154de87c9bde489509bd0ef55637b, type: 2}
-  xMaxBounds: 250
-  xMinBounds: -250
-  zMaxBounds: 250
-  zMinBounds: -250
+  xMaxBounds: 0
+  xMinBounds: 0
+  zMaxBounds: 0
+  zMinBounds: 0
 --- !u!4 &696313982
 Transform:
   m_ObjectHideFlags: 0
