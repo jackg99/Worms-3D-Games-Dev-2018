@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
         Instantiate(groundPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         spawnSurroundingWalls();
         generateFortress();
+        generateBattleground();
         //Instantiate(platformPrefab, new Vector3(0, 25, 225), Quaternion.Euler(90,0,0));
 
     }
@@ -69,11 +70,91 @@ public class GameManager : MonoBehaviour {
 
     public void generateFortress()
     {
+        //Creates fortress 1
+        createWall(new Vector3(-202.5f, 0, -150), 20, 95, 1, new Vector3(-202.5f, 10, -200));
+        createWall(new Vector3(-150, 0, -200), 20, 100, 1, new Vector3(-200, 10, -200));
 
-        createWall(new Vector3(50, 0, 0), 30, 100, 1, new Vector3(0, 15, 0));
-        createWall(new Vector3(0, 0, 50), 30, 100, 1, new Vector3(0, 15, 0));
-        createWall(new Vector3(0, 0, -50), 30, 100, 1, new Vector3(0, 15, 0));
-        createWall(new Vector3(-50, 0, 0), 30, 95, 1, new Vector3(0, 15, 0));
+        //Creates fortress 2
+        createWall(new Vector3(-202.5f, 0, 150), 20, 95, 1, new Vector3(-202.5f, 10, 200));
+        createWall(new Vector3(-150, 0, 200), 20, 100, 1, new Vector3(-200, 10, 200));
+
+        //Creates fortress 3
+        createWall(new Vector3(202.5f, 0, 150), 20, 95, 1, new Vector3(202.5f, 10, 200));
+        createWall(new Vector3(150, 0, 200), 20, 100, 1, new Vector3(200, 10, 200));
+
+        //Creates fortress 4
+        createWall(new Vector3(202.5f, 0, -150), 20, 95, 1, new Vector3(202.5f, 10, -200));
+        createWall(new Vector3(150, 0, -200), 20, 100, 1, new Vector3(200, 10, -200));
+    }
+
+    public void generateBattleground()
+    {
+        //create first pillar
+        createWall(new Vector3(45, 0, 40), 20, 10, 1, new Vector3(45, 10, 45));
+        createWall(new Vector3(40, 0, 45), 20, 10, 1, new Vector3(45, 10, 45));
+        createWall(new Vector3(45, 0, 50), 20, 10, 1, new Vector3(45, 10, 45));
+        createWall(new Vector3(50, 0, 45), 20, 10, 1, new Vector3(45, 10, 45));
+
+        //create second pillar
+        createWall(new Vector3(45, 0, -40), 20, 10, 1, new Vector3(45, 10, -45));
+        createWall(new Vector3(40, 0, -45), 20, 10, 1, new Vector3(45, 10, -45));
+        createWall(new Vector3(45, 0, -50), 20, 10, 1, new Vector3(45, 10, -45));
+        createWall(new Vector3(50, 0, -45), 20, 10, 1, new Vector3(45, 10, -45));
+
+        //create third pillar
+        createWall(new Vector3(-45, 0, -40), 20, 10, 1, new Vector3(-45, 10, -45));
+        createWall(new Vector3(-40, 0, -45), 20, 10, 1, new Vector3(-45, 10, -45));
+        createWall(new Vector3(-45, 0, -50), 20, 10, 1, new Vector3(-45, 10, -45));
+        createWall(new Vector3(-50, 0, -45), 20, 10, 1, new Vector3(-45, 10, -45));
+
+        //create fourth pillar
+        createWall(new Vector3(-45, 0, 40), 20, 10, 1, new Vector3(-45, 10, 45));
+        createWall(new Vector3(-40, 0, 45), 20, 10, 1, new Vector3(-45, 10, 45));
+        createWall(new Vector3(-45, 0, 50), 20, 10, 1, new Vector3(-45, 10, 45));
+        createWall(new Vector3(-50, 0, 45), 20, 10, 1, new Vector3(-45, 10, 45));
+
+        //create platform
+        createWall(new Vector3(0, 20.5f, 0), 1, 100, 100, new Vector3(100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
+
+        //create first turret
+        createWall(new Vector3(40, 21.5f, 30), 10, 20, 1, new Vector3(40, 26.5f, 40));
+        createWall(new Vector3(30, 21.5f, 40), 10, 20, 1, new Vector3(40, 26.5f, 40));
+        createWall(new Vector3(40, 21.5f, 50), 10, 20, 1, new Vector3(40, 26.5f, 40));
+        createWall(new Vector3(50, 21.5f, 40), 10, 20, 1, new Vector3(40, 26.5f, 40));
+        //create turret platform
+        createWall(new Vector3(40, 30.5f, 40), 1, 20, 20, new Vector3(100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
+
+        //create second turret
+        createWall(new Vector3(40, 21.5f, -30), 10, 20, 1, new Vector3(40, 26.5f, -40));
+        createWall(new Vector3(30, 21.5f, -40), 10, 20, 1, new Vector3(40, 26.5f, -40));
+        createWall(new Vector3(40, 21.5f, -50), 10, 20, 1, new Vector3(40, 26.5f, -40));
+        createWall(new Vector3(50, 21.5f, -40), 10, 20, 1, new Vector3(40, 26.5f, -40));
+        //create turret platform
+        createWall(new Vector3(40, 30.5f, -40), 1, 20, 20, new Vector3(100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
+
+        //create third turret
+        createWall(new Vector3(-40, 21.5f, -30), 10, 20, 1, new Vector3(-40, 26.5f, -40));
+        createWall(new Vector3(-30, 21.5f, -40), 10, 20, 1, new Vector3(-40, 26.5f, -40));
+        createWall(new Vector3(-40, 21.5f, -50), 10, 20, 1, new Vector3(-40, 26.5f, -40));
+        createWall(new Vector3(-50, 21.5f, -40), 10, 20, 1, new Vector3(-40, 26.5f, -40));
+        //create turret platform
+        createWall(new Vector3(-40, 30.5f, -40), 1, 20, 20, new Vector3(-100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
+
+        //create fourth turret
+        createWall(new Vector3(-40, 21.5f, 30), 10, 20, 1, new Vector3(-40, 26.5f, 40));
+        createWall(new Vector3(-30, 21.5f, 40), 10, 20, 1, new Vector3(-40, 26.5f, 40));
+        createWall(new Vector3(-40, 21.5f, 50), 10, 20, 1, new Vector3(-40, 26.5f, 40));
+        createWall(new Vector3(-50, 21.5f, 40), 10, 20, 1, new Vector3(-40, 26.5f, 40));
+        //create turret platform
+        createWall(new Vector3(-40, 30.5f, 40), 1, 20, 20, new Vector3(-100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
+
+        //create first step
+        createWall(new Vector3(60, 0, 0), 10, 100, 1, new Vector3(70, 5, 0));
+        createWall(new Vector3(80, 0, 0), 10, 100, 1, new Vector3(70, 5, 0));
+        createWall(new Vector3(70, 0, -50), 10, 20, 1, new Vector3(70, 5, 0));
+        createWall(new Vector3(70, 0, 50), 10, 20, 1, new Vector3(70, 5, 0));
+        //create turret platform
+        createWall(new Vector3(70, 10, 0), 1, 100, 20, new Vector3(100000, 0, 0));//The bigger the x value for lookAt(), the flatter the platform will be
     }
 
     
