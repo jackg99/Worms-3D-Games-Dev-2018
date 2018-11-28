@@ -51,5 +51,8 @@ public class MenuDisplay : MonoBehaviour {
                     Application.Quit();
             }
         }
-	}
+
+        Camera.main.transform.LookAt(this.transform.position);
+        Camera.main.transform.Translate(Vector3.right * Time.deltaTime);
+    }
 }
