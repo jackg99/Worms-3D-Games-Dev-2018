@@ -12,7 +12,10 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour {
     public UnityEngine.Object grenadePrefab;
     public UnityEngine.Object MissilePrefab;
-    Inventory myTeamInventory;
+
+    bool firingMissile = false, firingBullet = false;
+
+
     TimeAndDisplayCountup strengthMeter;
     PowerDisplay GrenadeDisplayTest;
     private float MaxGrenadeSpeed = 40;
@@ -21,7 +24,7 @@ public class ProjectileSpawner : MonoBehaviour {
     WormControl ourOwner;
 
 
-    public FloatingDisplay strengthMeterDisplay;
+    // public FloatingDisplay strengthMeterDisplay;
 
 
 
@@ -49,7 +52,7 @@ public class ProjectileSpawner : MonoBehaviour {
                     // strengthMeterDisplay.transform.position += 0.5f * Vector3.up;
                     if (strengthMeter.relative() > 1.0f) createGrenade();
                 }
-                else   // STart of launch grenade
+                else   // Start of launch grenade
                 {
                     GrenadeDisplayTest = gameObject.AddComponent<PowerDisplay>();
                     strengthMeter = gameObject.AddComponent<TimeAndDisplayCountup>();
@@ -83,6 +86,7 @@ public class ProjectileSpawner : MonoBehaviour {
             {
                 if (ourAimCam)
                 {
+                    print("Camera made");
                    ourAimCam.transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
                    ourAimCam.transform.Rotate(transform.right, Input.GetAxis("Vertical"));
                     if (crosshairs)
@@ -102,7 +106,8 @@ public class ProjectileSpawner : MonoBehaviour {
 
                 else
                 {
-                    GameObject cam = new GameObject();
+                    print("Adding Aim Camera");
+                    GameObject cam = new GameObject("Aiming Camera");
                     cam.AddComponent<Camera>();
                     ourAimCam = cam.gameObject.AddComponent<AimCameraControl>();
 
@@ -110,7 +115,7 @@ public class ProjectileSpawner : MonoBehaviour {
                     ourAimCam.transform.rotation = transform.rotation;
 
                     crosshairs = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
+                    firingMissile = true;
 
                      
                  }
@@ -120,13 +125,79 @@ public class ProjectileSpawner : MonoBehaviour {
 
             else  // M released (or not pressed)
             {
+                if (firingMissile)
+                {
+                    Destroy(ourAimCam.gameObject);
+                    Destroy(crosshairs);
+                    firingMissile = false;
+                }
+
+            }
+
+            
+            //Fire Bullet
+            if (Input.GetKey(KeyCode.F))
+            {
                 if (ourAimCam)
                 {
+                    ourAimCam.transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
+                    ourAimCam.transform.Rotate(transform.right, Input.GetAxis("Vertical"));
+                    if (crosshairs)
+                    {
+                        crosshairs.transform.position = ourAimCam.transform.position + 50.0f * ourAimCam.transform.forward;
+                    }
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Debug.DrawRay(ourAimCam.transform.position, ourAimCam.transform.forward * 1000, Color.blue, 10.0f);
+                        Ray bullets = new Ray(ourAimCam.transform.position, ourAimCam.transform.forward);
+                        RaycastHit info = new RaycastHit();
+
+                        if (Physics.Raycast(bullets, out info))
+                        {
+                            Health healthOfVictim = info.collider.GetComponent<Health>();
+                            if (healthOfVictim)
+                                healthOfVictim.adjustHealth(-20);
+                          
+                        }
+
+                        
+
+                        DestroyAimCam();
+                        ourOwner.setActive(false);
+                    }
+                }
+
+                else
+                {
+                    GameObject cam = new GameObject("Bullet Camera");
+                    cam.AddComponent<Camera>();
+                    ourAimCam = cam.gameObject.AddComponent<AimCameraControl>();
+
+                    ourAimCam.transform.position = transform.position + 2.0f * Vector3.up - 2.0f * transform.forward;
+                    ourAimCam.transform.rotation = transform.rotation;
+
+                    crosshairs = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+
+                    firingBullet = true;
+
+                }
+
+
+            }
+
+            else  // F released (or not pressed)
+            {
+                if (firingBullet)
+                {
+                    firingBullet = false;
                     Destroy(ourAimCam.gameObject);
                     Destroy(crosshairs);
                 }
 
             }
+
+
+
         }
         }
 
