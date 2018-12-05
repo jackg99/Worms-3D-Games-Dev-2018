@@ -69,7 +69,7 @@ public class PlayerControl : MonoBehaviour {
             nextWormSelect();
         }
 
-        //temporary code that allows user to add/remove rockets and grenades and to show inventory
+        //temporary code that allows user to add/remove rockets and grenades and to show inventory for testing purposes
 
         //-add 1 rocket with l
         if (Input.GetKeyDown("l"))
@@ -98,7 +98,7 @@ public class PlayerControl : MonoBehaviour {
         //-display the inventory with i
         if (Input.GetKey("i"))
         {
-            Debug.Log(allTeams[current_Team_Index].teamInventory.toString());
+            allTeams[current_Team_Index].teamInventory.displayInventory();
         }
 
         //End rocket/grenade code

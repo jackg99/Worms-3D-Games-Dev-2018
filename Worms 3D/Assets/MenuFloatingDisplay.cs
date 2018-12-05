@@ -39,6 +39,7 @@ public class MenuFloatingDisplay : MonoBehaviour
         MeshRenderer rend = ourText.GetComponent<MeshRenderer>();
         rend.material = font.material;
         ourText.font = font;
+        setColour(4);
     }
 
     public void setColour(int colorCode)
@@ -94,9 +95,13 @@ public class MenuFloatingDisplay : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (!Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
         {
-            setColour(4);
+            Boolean fd = hit.collider.gameObject.GetComponent<MenuFloatingDisplay>();
+            if (!fd)
+            {
+                setColour(4);
+            }
         }
     }
 
