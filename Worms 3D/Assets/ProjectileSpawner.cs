@@ -86,21 +86,23 @@ public class ProjectileSpawner : MonoBehaviour {
             {
                 if (ourAimCam)
                 {
+
                     print("Camera made");
                    ourAimCam.transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
                    ourAimCam.transform.Rotate(transform.right, Input.GetAxis("Vertical"));
+
                     if (crosshairs)
                     {
-                        crosshairs.transform.position = ourAimCam.transform.position + 50.0f * ourAimCam.transform.forward;
+                        crosshairs.transform.position = ourAimCam.target;
                     }
                     if (Input.GetMouseButtonDown(0))
                     {
                         GameObject newProjectileGO = (GameObject)Instantiate(grenadePrefab);
                         ProjectileControl newProjectileScript = newProjectileGO.GetComponent<ProjectileControl>();
 
-                        newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, ourAimCam.transform.position, ourAimCam.transform.forward, 15.0f, ourOwner);
+                        newProjectileScript.youAreA(ProjectileControl.ProjectileType.Missile, ourAimCam.transform.position, (ourAimCam.target -  ourAimCam.transform.position).normalized, 15.0f, ourOwner);
                         DestroyAimCam();
-                        ourOwner.setActive(false);
+                     //   ourOwner.setActive(false);
                     }
                 }
 
@@ -109,10 +111,13 @@ public class ProjectileSpawner : MonoBehaviour {
                     print("Adding Aim Camera");
                     GameObject cam = new GameObject("Aiming Camera");
                     cam.AddComponent<Camera>();
+                  
                     ourAimCam = cam.gameObject.AddComponent<AimCameraControl>();
 
                     ourAimCam.transform.position = transform.position + 2.0f * Vector3.up - 2.0f * transform.forward;
                     ourAimCam.transform.rotation = transform.rotation;
+                    ourAimCam.target = transform.position + 50 * transform.forward;
+
 
                     crosshairs = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     firingMissile = true;
